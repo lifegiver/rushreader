@@ -13,7 +13,7 @@
   <%= f.password_field :password_confirmation %></p>
 
 	<p><%= f.label :utc %><br />
-  <%= f.email_field :utc %></p>
+  <%= time_zone_select( "user", "utc", nil, :include_blank => true ) %></p>
 
   <p><%= f.submit "Sign up" %></p>
 <% end %>
