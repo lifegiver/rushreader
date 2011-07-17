@@ -11,7 +11,7 @@ Rushreader::Application.routes.draw do
 
   devise_for :users
 	root :to => 'home#index'
-	match 'articles' => 'articles#index', :as => 'user_root'
+	match 'home' => 'home#index', :as => 'user_root'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
