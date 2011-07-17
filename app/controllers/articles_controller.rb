@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
   # GET /articles/new.json
   def new
     @article = Article.new
-		get_article_title(@article)
+		
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,7 +42,7 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(params[:article])
-
+		get_article_title(@article)
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: 'Article was successfully created.' }
@@ -81,7 +81,9 @@ class ArticlesController < ApplicationController
       format.json { head :ok }
     end
   end
+
 def get_article_title(article_obj)
+	#require 'rubygems'
   require 'open-uri'
 	require 'nokogiri'
   url = Nokogiri::HTML(open(article_obj.link))

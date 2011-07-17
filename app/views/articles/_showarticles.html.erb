@@ -6,11 +6,16 @@
 <% @articles.each do |article| %>
   <tr>
     <td><%= article.link %></td>
+		<td><b>||</b></td>
     <td><%= article.title %></td>
     <td><%= link_to 'Show', article %></td>
     <td><%= link_to 'Destroy', article, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
+
+	<div>	
+		<p><%= link_to "Add an article", "articles/new"%></p>
+	</div>
 
 <br />
