@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>Articles</th>
+	</tr>
+
+<% @articles.each do |article| %>
+  <tr>
+    <td><%= article.link %></td>
+    <td><%= article.title %></td>
+    <td><%= link_to 'Show', article %></td>
+    <td><%= link_to 'Destroy', article, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

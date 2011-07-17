@@ -1,6 +1,12 @@
 <% if user_signed_in? %>
             Welcome user <%= current_user.email %>.
+
             <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+
+	<%= render 'articles/showarticles' %>
+	<div>	
+		<p><%= link_to "Add an article", "articles/new"%></p>
+	</div>
           <% else %>
             <%= link_to "Register", new_user_registration_path %> or <%= link_to "Login", new_user_session_path %>
           <% end %>

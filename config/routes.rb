@@ -1,8 +1,17 @@
 Rushreader::Application.routes.draw do
+  resources :articles
+
+  get "articles/new"
+
+  get "articles/destroy"
+
+  get "articles/get_article_title"
+
   get "home/index"
 
   devise_for :users
 	root :to => 'home#index'
+	match 'articles' => 'articles#index', :as => 'user_root'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
