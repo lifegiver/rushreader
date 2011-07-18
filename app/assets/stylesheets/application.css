@@ -2,6 +2,7 @@
  *= require reset
  *= require text
  *= require 960
+ *= require global
  *= require_self
- *= require_tree .
+ *= require_tree . 
 */

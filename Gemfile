@@ -16,7 +16,7 @@ gem 'jquery-rails'
 gem 'devise', "~> 1.4.2"
 gem 'haml'
 gem 'nokogiri', "~> 1.5.0"
-gem 'sanitize', "~> 2.0.3" 
+gem 'sanitize', "~> 2.0.3"
 
 # Use unicorn as the web server
 # gem 'unicorn'

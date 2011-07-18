@@ -83,13 +83,11 @@ class ArticlesController < ApplicationController
   end
 
 def get_article_title(article_obj)
-	#require 'rubygems'
   require 'open-uri'
-	require 'nokogiri'
-  url = Nokogiri::HTML(open(article_obj.link))
+  url = Nokogiri::HTML(open(article_obj.link,'User-Agent' => 'ruby'))
   result = url.xpath('/html/head/title').text
   article_obj.title = result
-  article_obj.update_attributes(params[:article])
+  #article_obj.update_attributes(params[:article])
 end
 
 end

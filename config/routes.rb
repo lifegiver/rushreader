@@ -1,17 +1,9 @@
 Rushreader::Application.routes.draw do
   resources :articles
 
-  get "articles/new"
-
-  get "articles/destroy"
-
-  get "articles/get_article_title"
-
-  get "home/index"
-
   devise_for :users
-	root :to => 'home#index'
-	match 'home' => 'home#index', :as => 'user_root'
+  root :to => 'home#index'
+  match 'articles' => 'articles#index', :as => 'user_root'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -68,5 +60,5 @@ Rushreader::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+  match ':controller(/:action(/:id(.:format)))'
 end

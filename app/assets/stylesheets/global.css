@@ -1,0 +1,17 @@
+.header {
+  margin: 18px 0 36px;
+}
+.nav {
+  list-style: none;
+  float: right;
+  margin: 0;
+}
+.nav li {
+  float: left;
+}
+.content {
+  margin-bottom: 36px
+}
+.footer p {
+  font-size: 10px;
+}

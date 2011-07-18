@@ -7,9 +7,36 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="header"></div>
+<div class="header">
+  <div class="container_12">
+    <div class="grid_3">RUSHREADER</div>
+    <div class="grid_9">
+      <ul class="nav">
+        <% if user_signed_in? %>
+          <li><%= link_to "Add an article", new_article_path %></li>
+          <li>Welcome <%= current_user.email %></li>
+          <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
 
-<%= yield %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container_12">
+    <div class="grid_12">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="container_12">
+    <div class="grid_12"><p>© 2011 Eugene Dorian, Alexander Lopez</p></div>
+  </div>
+
+</div>
 
 </body>
 </html>
