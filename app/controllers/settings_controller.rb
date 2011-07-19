@@ -13,6 +13,7 @@ class SettingsController < ApplicationController
 
   # GET /settings/1
   # GET /settings/1.json
+
   def show
     #@setting = Setting.find(params[:id])
 		@user = current_user
