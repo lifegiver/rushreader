@@ -7,11 +7,6 @@ class SettingsController < ApplicationController
 
   def new
     @setting = Setting.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @setting }
-    end
   end
 
   # POST /settings
