@@ -10,7 +10,7 @@
 <body>
 <div class="header">
   <div class="container_12">
-    <div class="grid_3">RUSHREADER</div>
+    <div class="grid_3" onclick="location.href='/';" style="cursor:pointer;">RUSHREADER</div>
     <div class="grid_9">
       <ul class="nav">
         <% if user_signed_in? %>
@@ -21,7 +21,9 @@
             <% end %>
           </li>
           <li>Welcome <%= current_user.email %></li>
+          <li><%= link_to "Settings", "/settings"%></li>
           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+       
 
         <% end %>
       </ul>
