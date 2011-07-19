@@ -1,31 +1,10 @@
 class SettingsController < ApplicationController
-  # GET /settings
-  # GET /settings.json
+
   def index
     @user = current_user
-    @settings = @user.setting
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @settings }
-    end
+    @setting = @user.setting
   end
 
-  # GET /settings/1
-  # GET /settings/1.json
-  def show
-    #@setting = Setting.find(params[:id])
-		@user = current_user
-		@setting = @user.setting
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @setting }
-    end
-  end
-
-  # GET /settings/new
-  # GET /settings/new.json
   def new
     @setting = Setting.new
 
@@ -35,18 +14,9 @@ class SettingsController < ApplicationController
     end
   end
 
-  # GET /settings/1/edit
-  def edit
-    #@setting = Setting.find(params[:id])
-		@user = current_user
-		@setting = @user.setting
-  end
-
   # POST /settings
   # POST /settings.json
   def create
-		@user = current_user
-		@settings = @user.setting
     @setting = Setting.new(params[:setting])
 		@setting.user = current_user
     respond_to do |format|
@@ -68,7 +38,7 @@ class SettingsController < ApplicationController
 		@setting = @user.setting
     respond_to do |format|
       if @setting.update_attributes(params[:setting])
-        format.html { redirect_to @setting, notice: 'Setting was successfully updated.' }
+        format.html { redirect_to '/settings', notice: 'Setting was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

@@ -1,16 +1,10 @@
 Rushreader::Application.routes.draw do
-  resources :settings
-
-  #get "settings/index"
-
   resources :articles
-	resources :settings
+  resources :settings
 
   devise_for :users
   root :to => 'home#index'
   match 'articles' => 'articles#index', :as => 'user_root'
-
-	match 'settings', :to => 'settings#edit'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
