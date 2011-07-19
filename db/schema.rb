@@ -10,12 +10,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110716114332) do
+ActiveRecord::Schema.define(:version => 20110718135433) do
 
   create_table "articles", :force => true do |t|
     t.string   "link"
     t.boolean  "read"
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",    :default => 0
+  end
+
+  create_table "settings", :force => true do |t|
+    t.integer  "articles_quantity"
+    t.integer  "interval_between_readings"
+    t.integer  "time_for_reading"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

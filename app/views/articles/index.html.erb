@@ -1,5 +1,6 @@
 <ul class="articles">
-  <% @articles.each do |article| %>
+	
+  <% @user.articles.each do |article| %>
     <li>
       <div class="favico">
         <%= image_tag("http://www.google.com/s2/favicons?domain=#{article.link.match(/([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/)}") %>

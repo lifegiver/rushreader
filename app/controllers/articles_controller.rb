@@ -2,7 +2,8 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+		@user = current_user
+    @articles = @user.articles
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,6 +43,7 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(params[:article])
+		@article.user = current_user
 		get_article_title(@article)
     respond_to do |format|
       if @article.save
