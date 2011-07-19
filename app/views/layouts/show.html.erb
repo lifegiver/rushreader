@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rushreader</title>
+  <%= stylesheet_link_tag    "show" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="header">
+  <div class="container_12">
+    <div class="grid_3">RUSHREADER</div>
+    <div class="grid_9">
+      <ul class="nav">
+        <% if user_signed_in? %>
+          <li><%= link_to "Add an article", new_article_path %></li>
+          <li>Welcome <%= current_user.email %></li>
+          <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%= yield %>
+
+
+</body>
+</html>

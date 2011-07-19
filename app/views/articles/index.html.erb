@@ -1,13 +1,13 @@
+<% content_for :cal do %>
+  <div class="container_12">
+    <div class="grid_3">
+      <%= link_to "Yesterday", @article, :remote => true %></div>
+    <div class="grid_6">Today</div>
+    <div class="grid_3">Tomorrow</div>
+  </div>
+<% end %>
+
+
 <ul class="articles">
-  <% @articles.each do |article| %>
-    <li>
-      <div class="favico">
-        <%= image_tag("http://www.google.com/s2/favicons?domain=#{article.link.match(/([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/)}") %>
-      </div>
-      <div class="link">
-        <%= link_to article.title, article.link %>
-        <%= link_to 'x', article, confirm: 'Are you sure?', method: :delete, :class=>"delete-article" %>
-      </div>
-    </li>
-  <% end %>
+  <%= render @articles %>
 </ul>

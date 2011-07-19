@@ -1,15 +1,9 @@
-<p id="notice"><%= notice %></p>
+<% content_for :stylesheets do %>
+  .header { position: fixed; left: 0; right: 0; z-index: 100}
+  .footer {display: none}
+<% end %>
 
-<p>
-  <b>Link:</b>
-  <%= @article.link %>
-</p>
-
-<p>
-  <b>Title:</b>
-  <%= @article.title %>
-</p>
-
-
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', "/" %>
+<div style="position: absolute; top: 40px; left: 0; right: 0; bottom: 0">
+  <iframe src="<%= @article.link %>" width="100%" height="99%">
+  </iframe>
+</div>

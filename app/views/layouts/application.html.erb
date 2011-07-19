@@ -4,6 +4,7 @@
   <title>Rushreader</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
+  <style type="text/css"><%= yield :stylesheets %></style>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -13,7 +14,12 @@
     <div class="grid_9">
       <ul class="nav">
         <% if user_signed_in? %>
-          <li><%= link_to "Add an article", new_article_path %></li>
+          <li>
+            <%= form_for (Article.new), :remote => true do |f| %>
+              <%= f.text_field :link %>
+              <%= f.submit %>
+            <% end %>
+          </li>
           <li>Welcome <%= current_user.email %></li>
           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
 
@@ -23,6 +29,7 @@
   </div>
 </div>
 
+<div class="cal"><%= yield :cal %></div>
 <div class="content">
   <div class="container_12">
     <div class="grid_12">

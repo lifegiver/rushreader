@@ -2,11 +2,22 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @user = current_user
+    @articles = @user.articles.where(:created_at => Time.now.midnight .. (Time.now.midnight + 1.day))
+    @articles_yesterday = @user.articles.where(:created_at =>  (Time.now.midnight - 1.day).. Time.now.midnight)
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @articles }
+      format.js
+    end
+  end
+
+  def yesterday
+    @user = current_user
+    @articles = @user.articles.where(:created_at =>  (Time.now.midnight - 1.day).. Time.now.midnight)
+
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -14,6 +25,9 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     @article = Article.find(params[:id])
+
+    #url = Nokogiri::HTML(open(@article.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
+    #@result = url.at('/html/body/div[2]/div/div/div[3]/div').to_html
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,7 +39,6 @@ class ArticlesController < ApplicationController
   # GET /articles/new.json
   def new
     @article = Article.new
-		
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,11 +55,13 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(params[:article])
-		get_article_title(@article)
+    @article.user = current_user
+    get_article_title(@article)
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
-        format.json { render json: @article, status: :created, location: @article }
+        #format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.html { redirect_to articles_url }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @article.errors, status: :unprocessable_entity }
@@ -78,13 +93,13 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to articles_url }
-      format.json { head :ok }
+      format.js
     end
   end
 
 def get_article_title(article_obj)
   require 'open-uri'
-  url = Nokogiri::HTML(open(article_obj.link,'User-Agent' => 'ruby'))
+  url = Nokogiri::HTML(open(article_obj.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
   result = url.xpath('/html/head/title').text
   article_obj.title = result
   #article_obj.update_attributes(params[:article])
