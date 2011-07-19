@@ -2,7 +2,7 @@ Rushreader::Application.routes.draw do
   resources :articles
   resources :settings
 
-  devise_for :users
+ # devise_for :users
 	
 	devise_for :users, :controllers => {:registrations => "registrations"}	
 
