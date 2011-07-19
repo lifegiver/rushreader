@@ -13,17 +13,18 @@
 
 	<div class="field">
 		<%= f.label 'Number of articles you want to add' %>
-		<%= f.select(:articles_quantity, [['5', 5], ['10', 10], ['20', 20]]) %>
+		<%= f.select(:articles_quantity, [['5', 1], ['10', 2], ['20', 3]]) %>
   </div>
 	<div class="field">
 		<%= f.label 'Interval between readings your articles (in minutes)' %>
-		<%= f.select(:interval_between_readings, [['25', 25], ['45', 45], ['50', 50]]) %>
+		<%= f.select(:interval_between_readings, [['25', 1], ['45', 2], ['50', 3]]) %>
   </div>
 	<div class="field">
 		<%= f.label 'Time for reading of each article (in minutes)'%>
-		<%= f.select(:time_for_reading, [['5', 5], ['10', 10], ['15', 15]]) %>
+		<%= f.select(:time_for_reading, [['5', 1], ['10', 2], ['15', 3]]) %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
