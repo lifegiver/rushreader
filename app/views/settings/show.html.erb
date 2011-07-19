@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <b>Articles quantity:</b>
+  <%= @setting.articles_quantity %>
+</p>
+
+<p>
+  <b>Interval between readings:</b>
+  <%= @setting.interval_between_readings %>
+</p>
+
+<p>
+  <b>Time for reading:</b>
+  <%= @setting.time_for_reading %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @setting.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_setting_path(@setting) %> |
+<%= link_to 'Back', settings_path %>

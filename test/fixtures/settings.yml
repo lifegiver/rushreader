@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  articles_quantity: 1
+  interval_between_readings: 1
+  time_for_reading: 1
+  user_id: 1
+
+two:
+  articles_quantity: 1
+  interval_between_readings: 1
+  time_for_reading: 1
+  user_id: 1
