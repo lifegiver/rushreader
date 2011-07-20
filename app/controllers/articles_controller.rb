@@ -54,20 +54,22 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    @article = Article.new(params[:article])
-    @article.user = current_user
-    get_article_title(@article)
-    respond_to do |format|
-      if @article.save
-        #format.html { redirect_to @article, notice: 'Article was successfully created.' }
-        format.html { redirect_to articles_url }
-        format.js
-      else
-        format.html { render action: "new" }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
+      @article = Article.new(params[:article])
+      @article.user = current_user
+      get_article_title(@article)
+      respond_to do |format|
+        if @article.save
+          #format.html { redirect_to @article, notice: 'Article was successfully created.' }
+          format.html { redirect_to articles_url }
+          format.js
+        else
+          format.html { render action: "new" }
+          format.json { render json: @article.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
+
+
 
   # PUT /articles/1
   # PUT /articles/1.json
@@ -90,7 +92,6 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
-
     respond_to do |format|
       format.html { redirect_to articles_url }
       format.js
