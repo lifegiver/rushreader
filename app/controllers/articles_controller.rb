@@ -69,6 +69,8 @@ class ArticlesController < ApplicationController
       end
   end
 
+
+
   # PUT /articles/1
   # PUT /articles/1.json
   def update
@@ -90,7 +92,6 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
-
     respond_to do |format|
       format.html { redirect_to articles_url }
       format.js

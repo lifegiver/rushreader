@@ -17,8 +17,9 @@ class User < ActiveRecord::Base
 
   private
 
-  def initial_settings
-    initial_settings = Setting.new(:articles_quantity => 20, :interval_between_readings => 25, :time_for_reading => 5, :user_id => self.id)
-    self.setting = initial_settings
-  end
+    def initial_settings
+      initial_settings = Setting.new(:articles_quantity => 20, :interval_between_readings => 25, :time_for_reading => 5, :user_id => self.id)
+      self.setting = initial_settings
+    end
+
 end
