@@ -3,8 +3,13 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
     @user = current_user
-    @articles = @user.articles.where(:created_at => Time.now.midnight .. (Time.now.midnight + 1.day))
-    @articles_yesterday = @user.articles.where(:created_at =>  (Time.now.midnight - 1.day).. Time.now.midnight)
+    if params[:day] == "tomorrow"
+      @articles = @user.articles.where(:created_at => Time.now.midnight + 1.day.. (Time.now.midnight + 2.day))
+    elsif params[:day] == "yesterday"
+      @articles = @user.articles.where(:created_at =>  (Time.now.midnight - 1.day).. Time.now.midnight)
+    else
+      @articles = @user.articles.where(:created_at => Time.now.midnight .. (Time.now.midnight + 1.day))
+    end
 
     respond_to do |format|
       format.html # index.html.erb
