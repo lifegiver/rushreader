@@ -3,6 +3,24 @@ class SettingsController < ApplicationController
   def index
     @user = current_user
     @setting = @user.setting
+    
+    @articles_quantity = APP_CONFIG['array1']
+    @articles_quantity_out = Array.new
+    @articles_quantity.each_with_index do |item, index|
+      @articles_quantity_out[index] = [item, index]
+    end
+
+    @interval_between_readings = APP_CONFIG['array2']
+    @interval_between_readings_out = Array.new
+    @interval_between_readings.each_with_index do |item, index|
+      @interval_between_readings_out[index] = [item, index]
+    end
+
+    @time_for_reading = APP_CONFIG['array3']
+    @time_for_reading_out = Array.new
+    @time_for_reading.each_with_index do |item, index|
+      @time_for_reading_out[index] = [item, index]
+    end
   end
 
   def new
