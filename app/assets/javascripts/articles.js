@@ -3,10 +3,14 @@ $(document).ready(function() {
   $('#new_article').live('ajax:before', function() {
     $(this).hide();
     $(this).parent().append("Loading...");
-  });
-  $('#new_article').live('ajax:complete', function() {
+  }).live('ajax:complete', function() {
     $('#article_link').val("");
     $(this).show();
     $('ul.articles > li:nth-child(4n)').addClass("last");
   });
+
+  $('.cal a').click(function(){
+    $(this).parent().parent().children('.active').removeClass("active");
+    $(this).parent().addClass("active");
+  })
 });
