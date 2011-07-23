@@ -1,9 +1,10 @@
 <% content_for :cal do %>
-  <div class="container_12">
-    <div class="grid_3">
-      <%= link_to "Yesterday", @article, :remote => true %></div>
-    <div class="grid_6">Today</div>
-    <div class="grid_3">Tomorrow</div>
+  <div class="container">
+    <div class="row">
+      <div class="threecol"><%= link_to "Yesterday", "/articles?day=yesterday", :remote => true, :class => "yesterday_link" %></div>
+      <div class="sixcol active"><%= link_to "Today", articles_path, :remote => true, :class => "today_link" %></div>
+      <div class="threecol last"><%= link_to "Tomorrow", "/articles?day=tomorrow", :remote=> true, :class => "tomorrow_link" %></div>
+    </div>
   </div>
 <% end %>
 

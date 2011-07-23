@@ -1,12 +1,12 @@
-array1:
+articles_quantity:
 - 5
 - 10
 - 20
-array2:
+interval_between_readings:
 - 25
 - 45
 - 60
-array3:
+time_for_reading:
 - 5
 - 10
 - 15

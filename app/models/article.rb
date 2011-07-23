@@ -6,13 +6,9 @@ class Article < ActiveRecord::Base
   private
 
   def can_create_article
-
-    articles_quantity = APP_CONFIG['array1']
+    articles_quantity = APP_CONFIG['articles_quantity']
     today_articles = user.articles.where(:created_at => Time.now.midnight .. (Time.now.midnight + 1.day)).count
-        logger.info "========================="
-logger.info "today_articles = #{today_articles} articles_quantity[user.setting.articles_quantity]= #{articles_quantity[user.setting.articles_quantity]}"
-logger.info "========================="
-    if today_articles < articles_quantity[user.setting.articles_quantity]
+    if today_articles <= articles_quantity[user.setting.articles_quantity]
       return true
     else
       return false
