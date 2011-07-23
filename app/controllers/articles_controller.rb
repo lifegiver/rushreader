@@ -42,6 +42,7 @@ class ArticlesController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @article }
     end
+    @article.save
   end
 
   # GET /articles/new
@@ -66,7 +67,7 @@ class ArticlesController < ApplicationController
       @article = Article.new(params[:article])
       @article.user = current_user
       get_article_title(@article)
-      @article.read = false
+      
 #      logger.info "========================="
 #      logger.info "Is it read? => #{@article.read}"
 #      logger.info "========================="
@@ -79,6 +80,7 @@ class ArticlesController < ApplicationController
           format.html { render action: "new" }
           format.json { render json: @article.errors, status: :unprocessable_entity }
         end
+        
       end
   end
 
