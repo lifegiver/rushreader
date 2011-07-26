@@ -1,17 +1,17 @@
 class Article < ActiveRecord::Base
-  before_create :can_create_article
+  before_save :set_updated_at
 
   belongs_to :user
 
   private
 
-  def can_create_article
+  def set_updated_at
     articles_quantity = APP_CONFIG['articles_quantity']
-    today_articles = user.articles.where(:created_at => Time.now.midnight .. (Time.now.midnight + 1.day)).count
+    today_articles = user.articles.where(:updated_at => Time.now.midnight .. (Time.now.midnight + 1.day)).count
     if today_articles <= articles_quantity[user.setting.articles_quantity]
-      return true
+      self.updated_at = Time.now
     else
-      return false
+      self.updated_at = Time.now + 1.day
     end
   end
 

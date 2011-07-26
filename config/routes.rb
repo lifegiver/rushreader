@@ -1,5 +1,8 @@
 Rushreader::Application.routes.draw do
   resources :articles
+  match "/archive" => "articles#archive"
+  match "/next" => "articles#next"
+
   resources :settings
 
   devise_for :users

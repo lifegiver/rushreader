@@ -2,14 +2,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @user = current_user
-    if params[:day] == "tomorrow"
-      @articles = @user.articles.where(:created_at => Time.now.midnight + 1.day.. (Time.now.midnight + 2.day))
-    elsif params[:day] == "yesterday"
-      @articles = @user.articles.where(:created_at =>  (Time.now.midnight - 1.day).. Time.now.midnight)
-    else
-      @articles = @user.articles.where(:created_at => Time.now.midnight .. (Time.now.midnight + 1.day))
-    end
+    @articles = current_user.articles.where(:updated_at => Time.now.midnight .. (Time.now.midnight + 1.day))
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,10 +10,15 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def yesterday
-    @user = current_user
-    @articles = @user.articles.where(:created_at =>  (Time.now.midnight - 1.day).. Time.now.midnight)
+  def archive
+    @articles = current_user.articles.where(:updated_at =>  (Time.now.midnight - 1.day).. Time.now.midnight)
+    respond_to do |format|
+      format.js
+    end
+  end
 
+  def next
+    @articles = current_user.articles.where(:updated_at => Time.now.midnight + 1.day.. (Time.now.midnight + 2.day))
     respond_to do |format|
       format.js
     end

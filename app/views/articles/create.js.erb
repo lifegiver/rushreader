@@ -1,1 +1,5 @@
-$('.articles').append("<%= escape_javascript(render @article) %>");
+var max_today = $('#max-today').text();
+var today_count = $('#today-count').text();
+if (today_count <= max_today) {
+  $('.articles').append("<%= escape_javascript(render @article) %>");
+}
