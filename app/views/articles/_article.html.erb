@@ -1,11 +1,12 @@
 <li class="threecol" id="article_<%= article.id %>">
-  <div class="article">
-    <div class="favico">
-      <%= image_tag("http://www.google.com/s2/favicons?domain=#{article.link.match(/([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/)}") %>
+<%= "Read = #{article.read}" if Rails.env.development? %>
+    <div class=<% if article.read? %>"article-read"<% else %>"article"<% end %>>
+      <div class="favico">
+        <%= image_tag("http://www.google.com/s2/favicons?domain=#{article.link.match(/([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/)}") %>
+      </div>
+      <div class="link">
+        <%= link_to article.title, article %>
+        <%= link_to 'x', article, confirm: 'Are you sure?', method: :delete, :remote => true, :class=>"delete-article" %>
+      </div>
     </div>
-    <div class="link">
-      <%= link_to article.title, article %>
-      <%= link_to 'x', article, confirm: 'Are you sure?', method: :delete, :remote => true, :class=>"delete-article" %>
-    </div>
-  </div>
 </li>

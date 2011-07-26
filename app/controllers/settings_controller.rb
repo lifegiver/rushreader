@@ -3,6 +3,25 @@ class SettingsController < ApplicationController
   def index
     @user = current_user
     @setting = @user.setting
+
+#    array_iterator = 1
+#    @settings_array = Array.new
+#    @tmp1 = Array.new
+#    @tmp2 = Array.new
+#    while array_iterator <= 3 do
+#      @tmp1 = APP_CONFIG['array'+"#{array_iterator}"]
+#      
+#      @tmp1.each_with_index do |item, index|     
+#        @tmp2[index] = [item, index]
+#  
+#      end
+#      @settings_array[array_iterator] = @tmp2
+#      logger.info "========================="
+#      logger.info "#{array_iterator} => #{@settings_array[array_iterator]}"
+#      logger.info "========================="
+#      
+#      array_iterator+=1
+#    end
     
     @articles_quantity = APP_CONFIG['articles_quantity']
     @articles_quantity_out = Array.new

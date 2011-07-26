@@ -28,6 +28,10 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     @article = Article.find(params[:id])
+    @article.read = true
+#    logger.info "========================="
+#    logger.info "Is it read? => #{@article.read}"
+#    logger.info "========================="
 
     #url = Nokogiri::HTML(open(@article.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
     #@result = url.at('/html/body/div[2]/div/div/div[3]/div').to_html
@@ -36,6 +40,7 @@ class ArticlesController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @article }
     end
+    @article.save
   end
 
   # GET /articles/new
@@ -60,6 +65,10 @@ class ArticlesController < ApplicationController
       @article = Article.new(params[:article])
       @article.user = current_user
       get_article_title(@article)
+      
+#      logger.info "========================="
+#      logger.info "Is it read? => #{@article.read}"
+#      logger.info "========================="
       respond_to do |format|
         if @article.save
           #format.html { redirect_to @article, notice: 'Article was successfully created.' }
@@ -69,6 +78,7 @@ class ArticlesController < ApplicationController
           format.html { render action: "new" }
           format.json { render json: @article.errors, status: :unprocessable_entity }
         end
+        
       end
   end
 
