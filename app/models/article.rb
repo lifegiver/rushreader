@@ -22,7 +22,7 @@ class Article < ActiveRecord::Base
     domain_name = self.link.match(domain_regex)[0]
     domain_find_by_name = Domain.find_by_name(domain_name)
     if domain_find_by_name.nil?
-      domain = Domain.new(:name => domain_name)
+      domain = Domain.create(:name => domain_name)
       self.domain_id = domain.id
     else
       self.domain_id = domain_find_by_name.id
