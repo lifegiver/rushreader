@@ -1,3 +1,10 @@
+@font-face
+  font-family: 'ProcionoTTRegular'
+  src: url('procionott-webfont.eot')
+  src: url('procionott-webfont.eot?iefix') format('eot'), url('procionott-webfont.woff') format('woff'), url('procionott-webfont.ttf') format('truetype'), url('procionott-webfont.svg#ProcionoTTRegular') format('svg')
+  font-weight: normal
+  font-style: normal
+
 .articles
   list-style: none
   overflow: hidden
@@ -5,31 +12,75 @@
     margin-bottom: 3.8%
     margin-left: 0
     .article
-      height: 50px
-      float: left
-      padding: 5px
-      border: 1px solid #999
       position: relative
-      font-size: 11px
-      width: 95%
     .article-read
-      height: 100px
-      float: left
-      padding: 5px
-      border: 1px solid #999
-      position: relative
-      font-size: 11px
-      width: 95%
+      background: #FCFCFC
     .favico
       float: left
       width: 16px
+      padding-top: 3px
     .link
-      margin-left: 20px
+      margin-left: 31px
+      a
+        font-family: "Georgia"
+        text-decoration: none
+        font-size: 16px
+        &:hover
+          text-decoration: underline
     .delete-article
       position: absolute
       top: 0
       right: 4px
 
+#article-content
+  color: #121212
+  font-family: "ProcionoTTRegular"
+  font-size: 17px
+  line-height: 28px
+  a
+    text-decoration: none
+    //color: #240581
+  img
+    margin-right: 15px
+  blockquote
+    margin-left: 25px
+  //wikipedia
+  .thumb, .quotebox
+    font-size: 14px !important
+    line-height: 22px
+    color: #666
+  .tleft
+    float: left
+    margin-right: 15px
+  .tright
+    float: right
+    margin-left: 15px
+  .magnify, .editsection, #jump-to-nav, #siteSub, .printfooter, #catlinks, .nowraplinks
+    display: none
+  #toc ul
+    list-style: none
+  table.wikitable
+    font-size: 14px
+    line-height: 22px
+    th
+      border-bottom: 1px solid #444
+      margin-bottom: 10px
+      padding-bottom: 10px
+      padding-right: 10px
+      font-weight: bold
+    td
+      border-bottom: 1px dotted #444
+      margin-bottom: 10px
+      padding-bottom: 10px
+  //businessinsider
+  #related-links
+    display: none
+
+  //thinkprogress
+  .alignright
+    float: right
+  .tags, .post-navigation, #comments
+    display: none
 
 .cal
   border-bottom: 1px solid #E6E6E6
