@@ -1,7 +1,9 @@
 class Article < ActiveRecord::Base
   before_save :set_updated_at
+  after_create  :define_domain
 
   belongs_to :user
+  belongs_to :domain
 
   private
 
@@ -15,4 +17,32 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def define_domain
+    domain_regex = /[a-z0-9]*\.[a-z0-9]*/
+    domain_name = self.link.match(domain_regex)[0]
+    domain_find_by_name = Domain.find_by_name(domain_name)
+    if domain_find_by_name.nil?
+      domain = Domain.new(:name => domain_name)
+      self.domain_id = domain.id
+    else
+      self.domain_id = domain_find_by_name.id
+    end
+    self.save
+  end
+
 end
+
+# == Schema Information
+#
+# Table name: articles
+#
+#  id         :integer         not null, primary key
+#  link       :string(255)
+#  read       :boolean
+#  title      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  user_id    :integer         default(0)
+#  domain_id  :integer
+#
+

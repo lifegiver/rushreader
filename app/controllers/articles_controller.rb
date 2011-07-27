@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
+
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
     @articles = current_user.articles.limit(articles_quantity[current_user.setting.articles_quantity])
@@ -79,7 +80,6 @@ class ArticlesController < ApplicationController
       @article = Article.new(params[:article])
       @article.user = current_user
       get_article_title(@article)
-      
 #      logger.info "========================="
 #      logger.info "Is it read? => #{@article.read}"
 #      logger.info "========================="

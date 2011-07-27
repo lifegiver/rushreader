@@ -1,4 +1,6 @@
 Rushreader::Application.routes.draw do
+  resources :domains
+
   resources :articles
   match "/archive" => "articles#archive"
   match "/next" => "articles#next"
