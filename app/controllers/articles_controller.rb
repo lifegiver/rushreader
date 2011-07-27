@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
+
   def index
     @user = current_user
     if params[:day] == "tomorrow"
@@ -67,7 +68,6 @@ class ArticlesController < ApplicationController
       @article = Article.new(params[:article])
       @article.user = current_user
       get_article_title(@article)
-      
 #      logger.info "========================="
 #      logger.info "Is it read? => #{@article.read}"
 #      logger.info "========================="

@@ -1,4 +1,6 @@
 Rushreader::Application.routes.draw do
+  resources :domains
+
   resources :articles
   resources :settings
 
