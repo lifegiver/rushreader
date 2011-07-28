@@ -1,5 +1,5 @@
 class Article < ActiveRecord::Base
-  before_save :set_updated_at
+  #before_save :set_updated_at
   after_create  :define_domain
 
   belongs_to :user
@@ -18,7 +18,7 @@ class Article < ActiveRecord::Base
   end
 
   def define_domain
-    domain_regex = /[a-z0-9]*\.[a-z0-9]*/
+    domain_regex = /([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/
     domain_name = self.link.match(domain_regex)[0]
     domain_find_by_name = Domain.find_by_name(domain_name)
     if domain_find_by_name.nil?

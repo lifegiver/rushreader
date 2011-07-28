@@ -6,13 +6,14 @@ $(document).ready(function() {
   }).live('ajax:complete', function() {
     $('#article_link').val("");
     $(this).show();
-    $('ul.articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
   });
 
   $('.cal a').click(function(){
     $(this).parent().parent().children('.active').removeClass("active");
     $(this).parent().addClass("active");
-  })
+  }).live('ajax:complete', function() {
+    $('ul.articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
+  });
 
 
   function equalHeight(group) {

@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
 
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
-    @articles = current_user.articles.limit(articles_quantity[current_user.setting.articles_quantity])
+    @articles = current_user.articles.where(:updated_at => Time.now.midnight .. (Time.now.midnight + 1.day)).limit(articles_quantity[current_user.setting.articles_quantity])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -20,7 +20,8 @@ class ArticlesController < ApplicationController
   end
 
   def next
-    @articles = current_user.articles.where(:updated_at => Time.now.midnight + 1.day.. (Time.now.midnight + 2.day))
+    articles_quantity = APP_CONFIG['articles_quantity']
+    @articles = current_user.articles.where(:updated_at => Time.now.midnight .. (Time.now.midnight + 1.day)).limit(20).offset(articles_quantity[current_user.setting.articles_quantity])
     respond_to do |format|
       format.js
     end
@@ -38,17 +39,10 @@ class ArticlesController < ApplicationController
 
     url = Nokogiri::HTML(open(@article.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
     url.encoding = 'UTF-8'
-    css_arr = ["html body#main-page.blogs div#wrapper div#inner div#main-content div.hentry div.content", "html body.mediawiki div#content div#bodyContent", "html body.single div.page-container div#page_content.clearfix div#primary.grid_4 article#post-690343.post div.description", "html body#techcrunch.single div#page-container div.column-container div.left-container div#module-post-detail.module-post-detail div.body-copy", "html body.home div.content_holder div.inner-padding div.col1 div.blogroll div.post_content div.post_body", "html body div#doc4.yui-t6 div#bd div#yui-main div.yui-b div.content div.sl-layout-post div#content.content div.small div.KonaBody", "html body div#container div#main article.economy div.post"]
-    css_arr.each do |item|
-      logger.info "########################"
-      logger.info item
-      logger.info "########################"
-      if (url.at_css(item))
-        @result = url.at_css(item).children
-        break
-      else
-        @result = "No data";
-      end
+    if (@article.domain.rule != nil)
+      @result = url.at_css(@article.domain.rule).children
+    else
+      @result = "No data";
     end
 
     respond_to do |format|

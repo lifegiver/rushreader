@@ -4,13 +4,11 @@
       <div class="threecol"><%= link_to "Archive", archive_path, :remote => true, :class => "yesterday_link" %></div>
       <div class="sixcol active">
         <%= link_to "Today", articles_path, :remote => true, :class => "today_link" %>
+        <span id="today-count"><%= @articles.count %></span>
+        <span>of</span>
         <span id="max-today">
           <% articles_quantity = APP_CONFIG['articles_quantity'] %>
           <%= articles_quantity[current_user.setting.articles_quantity] %>
-        </span>
-        <span>of</span>
-        <span id="today-count">
-          <%= @articles.count %>
         </span>
       </div>
       <div class="threecol last"><%= link_to "Next", next_path, :remote=> true, :class => "tomorrow_link" %></div>

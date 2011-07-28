@@ -1,5 +1,10 @@
 var max_today = $('#max-today').text();
 var today_count = $('#today-count').text();
-if (today_count <= max_today) {
+if (parseInt(today_count) < parseInt(max_today)) {
   $('.articles').append("<%= escape_javascript(render @article) %>");
+  $('ul.articles').children(".last").removeClass("last");
+  $('ul.articles').children(".clear").remove();
+  $('ul.articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
+  today_count = parseInt(today_count) + 1;
+  $('#today-count').text(today_count);
 }
