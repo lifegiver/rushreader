@@ -11,11 +11,14 @@
           <%= articles_quantity[current_user.setting.articles_quantity] %>
         </span>
       </div>
-      <div class="threecol last"><%= link_to "Next", next_path, :remote=> true, :class => "tomorrow_link" %></div>
     </div>
   </div>
 <% end %>
 
-<ul class="articles">
+<ul id="articles" class="articles">
   <%= render @articles %>
+</ul>
+<h3>Recently read today:</h3>
+<ul id="readed_articles" class="articles">
+  <%= render @readed_articles_today %>
 </ul>

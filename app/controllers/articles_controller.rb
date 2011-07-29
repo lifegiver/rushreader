@@ -4,7 +4,8 @@ class ArticlesController < ApplicationController
 
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
-    @articles = current_user.articles.where(:updated_at => Time.now.midnight .. (Time.now.midnight + 1.day)).limit(articles_quantity[current_user.setting.articles_quantity])
+    @readed_articles_today = current_user.articles.where(:read => true, :updated_at => Time.now.midnight .. (Time.now.midnight + 1.day))
+    @articles =current_user.articles.where(:read => false)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,15 +14,8 @@ class ArticlesController < ApplicationController
   end
 
   def archive
-    @articles = current_user.articles.where(:updated_at =>  (Time.now.midnight - 1.day).. Time.now.midnight)
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def next
-    articles_quantity = APP_CONFIG['articles_quantity']
-    @articles = current_user.articles.where(:updated_at => Time.now.midnight .. (Time.now.midnight + 1.day)).limit(20).offset(articles_quantity[current_user.setting.articles_quantity])
+    @articles = current_user.articles.where(:read => true)
+    #@articles = current_user.articles.where(:updated_at =>  (Time.now.midnight - 1.day).. Time.now.midnight, :read => true)
     respond_to do |format|
       format.js
     end

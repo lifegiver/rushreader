@@ -1,10 +1,3 @@
-@font-face
-  font-family: 'ProcionoTTRegular'
-  src: url('procionott-webfont.eot')
-  src: url('procionott-webfont.eot?iefix') format('eot'), url('procionott-webfont.woff') format('woff'), url('procionott-webfont.ttf') format('truetype'), url('procionott-webfont.svg#ProcionoTTRegular') format('svg')
-  font-weight: normal
-  font-style: normal
-
 .articles
   list-style: none
   overflow: hidden
@@ -14,7 +7,7 @@
     .article
       position: relative
     .article-read
-      background: #F2F2F2
+      opacity: 0.4
     .favico
       float: left
       width: 16px
@@ -22,7 +15,6 @@
     .link
       margin-left: 31px
       a
-        font-family: "Georgia"
         text-decoration: none
         font-size: 16px
         &:hover
@@ -33,10 +25,13 @@
       right: 4px
 
 #article-content
+  position: relative
+  top: 80px
+  width: 650px
+  margin: 0 auto
   color: #121212
-  font-family: "ProcionoTTRegular"
-  font-size: 17px
-  line-height: 28px
+  font-size: 18px
+  line-height: 1.41em
   a
     text-decoration: none
     //color: #240581

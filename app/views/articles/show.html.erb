@@ -1,9 +1,9 @@
 <% content_for :stylesheets do %>
   .header { position: fixed; top:0; left: 0; right: 0; z-index: 100}
-  .footer {display: none}
+  .footer, .cal {display: none}
 <% end %>
 
-<div id="article-content" style="position: absolute; top: 40px; bottom: 0; width: 680px">
+<div id="article-content">
   <h2><%= @article.title %></h2>
   <%=raw @result %>
   <!--
