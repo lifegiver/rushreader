@@ -1,2 +1,3 @@
-$('.articles').html("<%= escape_javascript(render @articles) %>");
-$('ul.articles > li:nth-child(4n)').addClass("last");
+$('.readed_box').show();
+$('#articles').html("<%= escape_javascript(render @articles) %>");
+$('ul#articles > li:nth-child(4n)').addClass("last");

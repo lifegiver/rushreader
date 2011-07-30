@@ -20,15 +20,15 @@
       <div class="ninecol last">
         <ul class="nav">
           <% if user_signed_in? %>
+            <li>Welcome <%= current_user.email %></li>
             <li>
               <%= form_for (Article.new), :remote => true do |f| %>
                 <%= f.text_field :link %>
-                <%= f.submit %>
+                <button>Submit</button>
               <% end %>
             </li>
-            <li>Welcome <%= current_user.email %></li>
-            <li><%= link_to "Settings", settings_path %></li>
-            <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+            <li><%= link_to "Settings", settings_path, :title => "Settings", :class => "ico settings" %></li>
+            <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete, :title => "Sign out", :class => "ico signout" %></li>
 
           <% end %>
         </ul>

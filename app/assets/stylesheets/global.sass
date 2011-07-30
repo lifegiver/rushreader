@@ -38,7 +38,6 @@ a
   background: #F6F6F6
   margin: 0 0 36px
   padding: 0 0 10px 0
-  color: #fff
   border-bottom: 1px solid #E6E6E6
   height: 34px
 
@@ -52,8 +51,6 @@ a
       font-style: italic
       text-decoration: none
 
-
-
   .nav
     list-style: none
     float: right
@@ -61,6 +58,48 @@ a
     padding-top: 10px
     li
       float: left
+      margin-left: 10px
+      .ico
+        display: block
+        text-indent: -9999px
+        width: 26px
+        height: 26px
+        opacity: 0.4
+        &:hover
+          opacity: 1
+      .settings
+        background: url(ico-settings.png) no-repeat
+      .signout
+        background: url(ico-signout.png) no-repeat
+    form#new_article
+      position: relative
+      #article_link
+        background: url(bg-input.png) repeat-x
+        border: 1px solid #666
+        font-size: 16px
+        padding: 2px
+        font-family: Georgia, serif
+        -webkit-border-radius: 2px
+        -moz-border-radius: 2px
+        border-radius: 2px
+        width: 115px
+        &.label
+          border: 1px solid #CCCCCC
+          color: #666
+        &:hover
+          border: 1px solid #666
+      button
+        display: none
+        opacity: 0.2
+        position: absolute
+        right: 5px
+        top: 5px
+        padding: 0
+        border: none
+        background: url(btn-enter.png) no-repeat
+        width: 16px
+        height: 15px
+        text-indent: -9999px
 
 .content
   margin-bottom: 36px
