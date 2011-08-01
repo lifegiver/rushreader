@@ -21,9 +21,17 @@ set :use_sudo, false
 
 # Git
 
-set :scm, :git
-set :repository,  "~/#{application}/.git"
+#set :scm, :git
+#set :repository,  "~/#{application}/.git"
+#set :branch, "master"
+default_run_options[:pty] = true  # Must be set for the password prompt from git to work
+set :repository, "git@github.com:lifegiver/rushreader.git"  # Your clone URL
+set :scm, "git"
+set :user, "dorian"  # The server's user for deploys
+set :scm_passphrase, "spike1880"  # The deploy user's password
+ssh_options[:forward_agent] = true
 set :branch, "master"
+set :deploy_via, :remote_cache
 
 # VPS
 
