@@ -11,7 +11,7 @@ require "bundler/capistrano"
 
 # General
 
-set :application, "rushreader"
+set :application, "rails_projects/rushreader"
 set :user, "dorian"
 
 set :deploy_to, "/home/#{user}/#{application}"
