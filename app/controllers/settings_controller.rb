@@ -1,5 +1,7 @@
 class SettingsController < ApplicationController
 
+  before_filter :authenticate, :only => [:index, :new, :create, :update, :destroy]
+
   def index
     @user = current_user
     @setting = @user.setting
@@ -94,5 +96,11 @@ class SettingsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  private
+
+    def authenticate
+      deny_access unless signed_in?
+    end
 end
 

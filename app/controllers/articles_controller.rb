@@ -2,6 +2,10 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
 
+  before_filter :authenticate, :only => [:index, :new, :create, :edit,
+                                         :update, :archive, :show]
+  before_filter :correct_user, :only => [:show, :destroy]
+
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
     @readed_articles_today = current_user.articles.where(:read => true, :updated_at => Time.now.midnight .. (Time.now.midnight + 1.day))
@@ -121,4 +125,15 @@ class ArticlesController < ApplicationController
     #article_obj.update_attributes(params[:article])
   end
 
+   private
+
+    def authenticate
+      deny_access unless signed_in?
+    end
+
+    def correct_user
+      @article = Article.find(params[:id])
+      user = @article.user
+      redirect_to root_path unless current_user == user
+    end
 end
