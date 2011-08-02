@@ -14,7 +14,7 @@ module ArticlesHelper
     if read_article.nil?
       last_updated = "You haven't read any article yet"
     else
-      time_without_utc = read_article.updated_at + 3.hours
+      time_without_utc = read_article.updated_at - 4.hours
       difference = ActiveSupport::TimeZone[current_user.setting.utc].now.hour - Time.now.hour
       time_with_utc = time_without_utc + difference.hours
       last_updated = "Last time you have read your articles at #{time_with_utc.to_s(format = :short)}. That was #{time_ago_in_words(read_article.updated_at)} ago"
