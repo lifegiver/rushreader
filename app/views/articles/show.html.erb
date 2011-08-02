@@ -3,11 +3,11 @@
   .footer, .cal {display: none}
 <% end %>
 
-<div id="article-content">
-  <h2><%= @article.title %></h2>
-  <%=raw @result %>
-  <!--
-  <iframe src="<%= @article.link %>" width="100%" height="99%">
-  </iframe>
-  -->
-</div>
+  <% if @article.domain.rule.nil? %>
+    <iframe id="article-iframe" src="<%= @article.link %>" width="100%"></iframe>
+  <% else %>
+    <div id="article-content">
+      <h2><%= @article.title %></h2>
+      <%=raw @result %>
+    </div>
+  <% end %>

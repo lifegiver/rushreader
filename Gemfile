@@ -18,7 +18,6 @@ gem 'haml'
 gem 'nokogiri', "~> 1.5.0"
 gem 'sanitize', "~> 2.0.3"
 gem 'annotate', :git => 'git://github.com/jeremyolliver/annotate_models.git', :branch => 'rake_compatibility'
-gem "arel", "~> 2.1.4"
 
 # Use unicorn as the web server
 # gem 'unicorn'

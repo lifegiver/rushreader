@@ -129,7 +129,6 @@ PLATFORMS
 
 DEPENDENCIES
   annotate!
-  arel (~> 2.1.4)
   coffee-script
   devise (~> 1.4.2)
   haml

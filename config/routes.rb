@@ -1,20 +1,18 @@
 Rushreader::Application.routes.draw do
-  resources :domains
-
-  resources :articles
-  match "/archive" => "articles#archive"
-  match "/next" => "articles#next"
 
   resources :settings
+  resources :articles
+  resources :domains
 
   devise_for :users do
    get "/login" => "devise/sessions#new"
   end
 
-	#devise_for :users, :controllers => {:registrations => "registrations"}	
-
   root :to => 'home#index'
+  devise_for :users
+  #match "/articles/:id-:link" => "articles#show", :constraints => { :link => /\// }
   match 'articles' => 'articles#index', :as => 'user_root'
+  match "/archive" => "articles#archive"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
