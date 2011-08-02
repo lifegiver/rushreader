@@ -50,3 +50,10 @@ namespace :deploy do
  end
 end
 
+desc "Reload Nginx"
+task :reload_nginx do
+  sudo "/etc/init.d/nginx reload"
+end
+
+after "deploy", "reload_nginx"
+
