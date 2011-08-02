@@ -1,4 +1,14 @@
+//function to fix height of iframe!
+var calcHeight = function() {
+  var headerDimensions = $('.header').height()+1;
+  $('#article-iframe').height($(window).height() - headerDimensions);
+}
+
 $(document).ready(function() {
+
+  calcHeight();
+
+
   $('ul#articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
   $('#new_article').live('ajax:before', function() {
     $(this).hide();
@@ -64,4 +74,10 @@ $(document).ready(function() {
     group.height(tallest);
   };
 
+});
+
+$(window).resize(function() {
+  calcHeight();
+}).load(function() {
+  calcHeight();
 });

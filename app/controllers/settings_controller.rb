@@ -22,12 +22,6 @@ class SettingsController < ApplicationController
 #      
 #      array_iterator+=1
 #    end
-    
-    @articles_quantity = APP_CONFIG['articles_quantity']
-    @articles_quantity_out = Array.new
-    @articles_quantity.each_with_index do |item, index|
-      @articles_quantity_out[index] = [item, index]
-    end
 
     @interval_between_readings = APP_CONFIG['interval_between_readings']
     @interval_between_readings_out = Array.new

@@ -5,6 +5,11 @@ class Article < ActiveRecord::Base
   belongs_to :user
   belongs_to :domain
 
+  def to_param
+    "#{id}-#{link.parameterize}"
+  end
+
+
   private
 
   def set_updated_at
