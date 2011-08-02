@@ -8,7 +8,7 @@ class Article < ActiveRecord::Base
   private
 
   def set_updated_at
-    articles_quantity = APP_CONFIG['articles_quantity']
+    #articles_quantity = APP_CONFIG['articles_quantity']
     today_articles = user.articles.where(:updated_at => Time.now.midnight .. (Time.now.midnight + 1.day)).count
     if today_articles <= articles_quantity[user.setting.articles_quantity]
       self.updated_at = Time.now
@@ -30,6 +30,8 @@ class Article < ActiveRecord::Base
     self.save
   end
 
+
+
 end
 
 # == Schema Information
@@ -38,7 +40,7 @@ end
 #
 #  id         :integer         not null, primary key
 #  link       :string(255)
-#  read       :boolean
+#  read       :boolean         default(FALSE)
 #  title      :string(255)
 #  created_at :datetime
 #  updated_at :datetime

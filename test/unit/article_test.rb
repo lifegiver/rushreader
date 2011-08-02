@@ -12,7 +12,7 @@ end
 #
 #  id         :integer         not null, primary key
 #  link       :string(255)
-#  read       :boolean
+#  read       :boolean         default(FALSE)
 #  title      :string(255)
 #  created_at :datetime
 #  updated_at :datetime

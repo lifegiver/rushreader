@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   private
 
     def initial_settings
-      initial_settings = Setting.new(:articles_quantity => 0, :interval_between_readings => 0, :time_for_reading => 0, :user_id => self.id)
+      initial_settings = Setting.new(:utc_time => Time.now, :utc => "London", :interval_between_readings => 25, :time_for_reading => 5, :user_id => self.id)
       self.setting = initial_settings
     end
 
@@ -41,6 +41,5 @@ end
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
-#  utc                    :decimal(, )     default(0.0)
 #
 

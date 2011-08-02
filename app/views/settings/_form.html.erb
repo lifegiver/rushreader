@@ -12,8 +12,9 @@
   <% end %>
 
 	<div class="field">
-		<%= f.label 'Number of articles you want to add' %>
-		<%= f.select(:articles_quantity, @articles_quantity_out) %>
+    <%= f.label "UTC" %>
+    <%#time_zone_select( 'utc' [ ActiveSupport::TimeZone['Alaska'], ActiveSupport::TimeZone['Hawaii'] ]) %>
+    <%= f.time_zone_select( 'utc' ) %>
   </div>
 	<div class="field">
 		<%= f.label 'Interval between readings your articles (in minutes)' %>
