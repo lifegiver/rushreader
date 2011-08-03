@@ -9,12 +9,14 @@
   </div>
 <% end %>
 
+
 <ul id="articles" class="articles">
   <%= render @articles %>
   <%= render @readed_articles_today %>
 </ul>
 <div class="readed_box">
   <p>
-    Last article was read <%= last_read_time %> ago
+    <%= notice %><br />
+    <%= last_read_time %><br />
   </p>
 </div>

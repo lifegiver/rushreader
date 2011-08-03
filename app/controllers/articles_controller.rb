@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
 
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
-    @readed_articles_today = current_user.articles.where(:read => true, :updated_at => Time.now.midnight .. (Time.now.midnight + 1.day))
+    @readed_articles_today = current_user.articles.where(:read => true, :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
     @articles = current_user.articles.where(:read => false)
 
     respond_to do |format|
@@ -29,25 +29,32 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     require 'open-uri'
+    last_article = last_read_article
     @article = Article.find(params[:id])
-    @article.read = true
-#    logger.info "========================="
-#    logger.info "Is it read? => #{@article.read}"
-#    logger.info "========================="
+    if last_article.nil? || (!last_article.nil? && time_from_last_reading > current_user.setting.interval_between_readings.minutes) || @article.read?
+      @article.read = true
+  #    logger.info "========================="
+  #    logger.info "Is it read? => #{@article.read}"
+  #    logger.info "========================="
 
-    url = Nokogiri::HTML(open(@article.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
-    url.encoding = 'UTF-8'
-    if (@article.domain.rule != nil)
-      @result = url.at_css(@article.domain.rule).children
+      url = Nokogiri::HTML(open(@article.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
+      url.encoding = 'UTF-8'
+      if (@article.domain.rule != nil)
+        @result = url.at_css(@article.domain.rule).children
+      else
+        @result = "No data";
+      end
+
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @article }
+      end
+      @article.save
     else
-      @result = "No data";
+      #visit_in = current_user.setting.interval_between_readings.minutes - time_from_last_reading
+      #"Wait for #{(visit_in / 1.minutes).floor} minutes"
+      redirect_to articles_path, :notice => "You are not allowed to read this article yet."
     end
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @article }
-    end
-    @article.save
   end
 
   # GET /articles/new
@@ -84,7 +91,6 @@ class ArticlesController < ApplicationController
           format.html { render action: "new" }
           format.json { render json: @article.errors, status: :unprocessable_entity }
         end
-        
       end
   end
 

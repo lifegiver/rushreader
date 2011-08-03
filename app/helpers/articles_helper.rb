@@ -8,17 +8,32 @@ module ArticlesHelper
     redirect_to login_path, :notice => "Please sign in to access this page."
   end
 
+  def user_utc_shift
+    ActiveSupport::TimeZone[current_user.setting.utc].now.hour - Time.now.hour
+  end
+
+  def user_time
+    Time.now + user_utc_shift.hours
+  end
+
+  def last_read_article
+    current_user.articles.find(:first, :order => "updated_at DESC", :limit => 1,
+                               :conditions => { :read => true } )
+  end
+
+  def time_from_last_reading
+    Time.now - last_read_article.updated_at.to_time
+  end
+
   def last_read_time
-    read_article = current_user.articles.find(:first, :order => "updated_at DESC", :limit => 1,
-                                 :conditions => { :read => true } )
-    if read_article.nil?
-      last_updated = "You haven't read any article yet"
+    last_article = last_read_article
+    if last_article.nil?
+      "Well, you haven't read any article yet."
     else
-      time_without_utc = read_article.updated_at - 4.hours
-      difference = ActiveSupport::TimeZone[current_user.setting.utc].now.hour - Time.now.hour
-      time_with_utc = time_without_utc + difference.hours
+      #time_without_utc = last_read_article.updated_at - 4.hours
+      #time_with_utc = time_without_utc + user_utc_shift.hours
       #last_updated = "Last time you have read your articles at #{time_with_utc.to_s(format = :short)}. That was #{time_ago_in_words(read_article.updated_at)} ago"
-      last_updated = time_ago_in_words(read_article.updated_at)
+      "Last article was read #{time_ago_in_words(last_article.updated_at)} ago."
     end
   end
 
