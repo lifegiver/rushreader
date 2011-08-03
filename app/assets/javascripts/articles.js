@@ -17,7 +17,7 @@ $(document).ready(function() {
   });
 
   $('.article a').click(function(){
-    $(this).parent().parent().addClass("article-read");
+    $(this).parent().parent().parent().addClass("article-read");
   });
 
   //Add link here
