@@ -5,9 +5,7 @@ var calcHeight = function() {
 }
 
 $(document).ready(function() {
-
   calcHeight();
-
 
   $('ul#articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
   $('#new_article').live('ajax:before', function() {
@@ -18,6 +16,11 @@ $(document).ready(function() {
     $(this).show();
   });
 
+  $('.article a').click(function(){
+    $(this).parent().parent().addClass("article-read");
+  });
+
+  //Add link here
   if ($('#article_link').val("")) {
     $('#article_link').val("Add link here...").addClass('label');
   };
@@ -61,18 +64,6 @@ $(document).ready(function() {
   }).live('ajax:complete', function() {
     $('ul#articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
   });
-
-
-  function equalHeight(group) {
-    var tallest = 0;
-    group.each(function() {
-      var thisHeight = $(this).height();
-      if(thisHeight > tallest) {
-        tallest = thisHeight;
-      }
-    });
-    group.height(tallest);
-  };
 
 });
 

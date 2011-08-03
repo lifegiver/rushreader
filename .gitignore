@@ -5,6 +5,7 @@ log/*.log
 /tmp/
 doc/
 *.swp
+*.swo
 *~
 .project
 .DS_Store

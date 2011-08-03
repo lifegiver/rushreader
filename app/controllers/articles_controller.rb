@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
     @readed_articles_today = current_user.articles.where(:read => true, :updated_at => Time.now.midnight .. (Time.now.midnight + 1.day))
-    @articles =current_user.articles.where(:read => false)
+    @articles = current_user.articles.where(:read => false)
 
     respond_to do |format|
       format.html # index.html.erb
