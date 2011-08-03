@@ -1,5 +1,5 @@
-<li class="threecol" id="article_<%= article.id %>">
-  <div class="article <% if article.read? %>article-read<% end %>">
+<li class="threecol article <% if article.read? %>article-read<% end %>" id="article_<%= article.id %>">
+  <div class="article_box">
     <div class="favico">
       <%= image_tag("http://www.google.com/s2/favicons?domain=#{article.link.match(/[a-z0-9]*\.[a-z0-9]*/)}") %>
     </div>
