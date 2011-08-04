@@ -2,9 +2,14 @@
   <div class="container">
     <div class="row">
       <div class="threecol"><%= link_to "Archive", archive_path, :remote => true, :class => "yesterday_link" %></div>
-      <div class="sixcol active">
+      <div class="fivecol active">
         <%= link_to "Today", articles_path, :remote => true, :class => "today_link" %>
       </div>
+
+      <% if @read_in > 0 %>
+        <div class="fourcol last"><div class="timer"><div class="time"><span id="minutes"><%= @read_in < 10 ? ("0"+@read_in.to_s) : @read_in %></span>:<span id="seconds">00</span></div><div class="timer_desc">minutes before you can read any article</div></div></div>
+      <% end %>
+
     </div>
   </div>
 <% end %>
@@ -15,8 +20,4 @@
   <%= render @readed_articles_today %>
 </ul>
 <div class="readed_box">
-  <p>
-    <%= notice %><br />
-    <%= last_read_time %><br />
-  </p>
 </div>

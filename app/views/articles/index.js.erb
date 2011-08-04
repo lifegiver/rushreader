@@ -1,3 +1,3 @@
-$('.readed_box').show();
 $('#articles').html("<%= escape_javascript(render @articles) %>");
+$('#articles').append("<%= escape_javascript(render @readed_articles_today) %>");
 $('ul#articles > li:nth-child(4n)').addClass("last");

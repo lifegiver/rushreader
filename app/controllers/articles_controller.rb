@@ -11,6 +11,8 @@ class ArticlesController < ApplicationController
     @readed_articles_today = current_user.articles.where(:read => true, :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
     @articles = current_user.articles.where(:read => false)
 
+    @read_in = ((current_user.setting.interval_between_readings.minutes - time_from_last_reading) / 1.minutes).floor
+
     respond_to do |format|
       format.html # index.html.erb
       format.js
