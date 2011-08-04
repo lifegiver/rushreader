@@ -38,7 +38,7 @@
 </div>
 
 <div class="cal"><%= yield :cal %></div>
-<div id="notice"><%= notice %></div>
+<% if notice %><div id="notice"><%= notice %></div><% end %>
 <div class="content">
   <div class="container">
     <div class="row">
