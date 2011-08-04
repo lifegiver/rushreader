@@ -7,6 +7,7 @@
       </div>
 
       <% if @read_in > 0 %>
+        <%= javascript_include_tag "timer" %>
         <div class="fourcol last"><div class="timer"><div class="time"><span id="minutes"><%= @read_in < 10 ? ("0"+@read_in.to_s) : @read_in %></span>:<span id="seconds">00</span></div><div class="timer_desc">minutes before you can read any article</div></div></div>
       <% end %>
 
