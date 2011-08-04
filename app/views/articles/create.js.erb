@@ -1,4 +1,8 @@
-$('.article').not('.article-read').last().after("<%= escape_javascript(render @article) %>");
+if ($('.article').not('.article-read').length > 0) {
+  $('.article').not('.article-read').last().after("<%= escape_javascript(render @article) %>");
+} else {
+  $('#articles').prepend("<%= escape_javascript(render @article) %>");
+}
 $('ul#articles').children(".last").removeClass("last");
 $('ul#articles').children(".clear").remove();
 $('ul#articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");

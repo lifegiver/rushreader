@@ -16,25 +16,21 @@ module ArticlesHelper
     Time.now + user_utc_shift.hours
   end
 
+  def read_in
+    current_user.setting.interval_between_readings.minutes
+  end
+
   def last_read_article
     current_user.articles.find(:first, :order => "updated_at DESC", :limit => 1,
                                :conditions => { :read => true } )
   end
 
   def time_from_last_reading
-    Time.now - last_read_article.updated_at.to_time
+    (Time.zone.now - last_read_article.updated_at.to_time).floor
   end
 
   def last_read_time
-    last_article = last_read_article
-    if last_article.nil?
-      "Well, you haven't read any article yet."
-    else
-      #time_without_utc = last_read_article.updated_at - 4.hours
-      #time_with_utc = time_without_utc + user_utc_shift.hours
-      #last_updated = "Last time you have read your articles at #{time_with_utc.to_s(format = :short)}. That was #{time_ago_in_words(read_article.updated_at)} ago"
-      "Last article was read #{time_ago_in_words(last_article.updated_at)} ago."
-    end
+    read_in - time_from_last_reading
   end
 
 #  def time_ago

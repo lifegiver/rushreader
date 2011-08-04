@@ -1,18 +1,17 @@
 $(function() {
+  var secs = $("#fakeSeconds").text();
   var mins = $("#minutes").text();
-  var secs = mins * 60;
   var timer = setInterval(function() {
     // if less than a minute remaining
-      if (secs < 59) {
-        $("#seconds").text(secs);
+      secs--;
+      if (secs == 0) {
+        $('.time').text("Ready for the next one?");
+        $('.timer_desc').remove();
+        clearInterval(timer);
       } else {
         $("#minutes").text(getminutes());
         $("#seconds").text(getseconds());
       }
-      if ($("#minutes").text() == "00" && $("#seconds").text() == "00") {
-        clearInterval(timer);
-      }
-    secs--;
   }, 1000);
 
   function getminutes() {
