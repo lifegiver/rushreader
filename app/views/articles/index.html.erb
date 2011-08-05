@@ -6,7 +6,7 @@
         <%= link_to "Today", articles_path, :remote => true, :class => "today_link" %>
       </div>
 
-      <% if time_from_last_reading > 0 %>
+      <% if last_read_time > 0 %>
         <%= javascript_include_tag "timer" %>
         <div class="fourcol last"><div class="timer"><div id="fakeSeconds"><%= last_read_time %></div><div class="time"><span id="minutes"><%= ((last_read_time) / 60) < 10 ? "0" + ((last_read_time) / 60).to_s: (last_read_time) / 60 %></span>:<span id="seconds"><%= last_read_time-(((last_read_time)/ 60) * 60) < 10 ? "0" + (last_read_time-(((last_read_time)/ 60) * 60)).to_s : last_read_time-(((last_read_time)/ 60) * 60) %></span></div><div class="timer_desc">minutes before you can read any article</div></div></div>
       <% end %>
