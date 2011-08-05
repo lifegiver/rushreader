@@ -5,6 +5,13 @@ GIT
   specs:
     annotate (2.4.0)
 
+GIT
+  remote: https://github.com/jyro215/mobile-fu
+  revision: ffd1f82f0eb9d365f4da698943b960fdf12e5558
+  specs:
+    mobile_fu-rails3 (1.0.3)
+      rails (>= 3.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -133,6 +140,7 @@ DEPENDENCIES
   devise (~> 1.4.2)
   haml
   jquery-rails
+  mobile_fu-rails3!
   nokogiri (~> 1.5.0)
   pg
   rails (= 3.1.0.rc4)

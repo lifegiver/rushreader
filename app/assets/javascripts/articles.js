@@ -1,13 +1,5 @@
-//function to fix height of iframe!
-var calcHeight = function() {
-  var headerDimensions = $('.header').height()+1;
-  $('#article-iframe').height($(window).height() - headerDimensions);
-}
-
 $(document).ready(function() {
-  calcHeight();
-
-  $('ul#articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
+  //$('ul#articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
   $('#new_article').live('ajax:before', function() {
     $(this).hide();
     $(this).parent().append("Loading...");
@@ -62,15 +54,9 @@ $(document).ready(function() {
     $(this).parent().parent().children('.active').removeClass("active");
     $(this).parent().addClass("active");
   }).live('ajax:complete', function() {
-    $('ul#articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
+    //$('ul#articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
   });
 
   // Notice
   $('#notice').delay(10000).fadeOut(1000);
-});
-
-$(window).resize(function() {
-  calcHeight();
-}).load(function() {
-  calcHeight();
 });

@@ -2,40 +2,43 @@
 <html>
 <head>
   <title>Readissimo</title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= stylesheet_link_tag    params[:controller] %>
+<meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  
+  <%= stylesheet_link_tag "application" %>
+  <%= stylesheet_link_tag params[:controller] %>
   <%= javascript_include_tag "application" %>
   <%= javascript_include_tag params[:controller] %>
+  <%= yield :javascript %>
+  <% if is_mobile_device? %>
+    <%= stylesheet_link_tag "mobile" %>
+  <% else %>
+    <%= stylesheet_link_tag "desktop" %>
+  <% end %>
+
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <style type="text/css"><%= yield :stylesheets %></style>
+  <style type="text/css"><%= yield :rawstyle %></style>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <div class="header">
   <div class="container">
-    <div class="row">
-      <div class="threecol">
-        <h1 class="logo"><a href="<%= root_path %>">Readissimo</a></h1>
-      </div>
-      <div class="ninecol last">
-        <ul class="nav">
-          <% if user_signed_in? %>
-            <li>Welcome <%= current_user.email %></li>
-            <li>
-              <%= form_for (Article.new), :remote => true do |f| %>
-                <%= f.text_field :link %>
-                <button>Submit</button>
-              <% end %>
-            </li>
-            <li><%= link_to "Settings", settings_path, :title => "Settings", :class => "ico settings" %></li>
-            <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete, :title => "Sign out", :class => "ico signout" %></li>
-
+    <h1 class="logo"><a href="<%= root_path %>">Readissimo</a></h1>
+    <ul class="nav">
+      <% if user_signed_in? %>
+        <li>Welcome <%= current_user.email %></li>
+        <li>
+          <%= form_for (Article.new), :remote => true do |f| %>
+            <%= f.text_field :link %>
+            <button>Submit</button>
           <% end %>
-        </ul>
-      </div>
-    </div>
+        </li>
+        <li><%= link_to "Settings", settings_path, :title => "Settings", :class => "ico settings" %></li>
+        <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete, :title => "Sign out", :class => "ico signout" %></li>
+
+      <% end %>
+    </ul>
   </div>
 </div>
 
@@ -43,17 +46,14 @@
 <% if notice %><div id="notice"><%= notice %></div><% end %>
 <div class="content">
   <div class="container">
-    <div class="row">
-      <%= yield %>
-    </div>
+    <%= yield %>
   </div>
 </div>
 
 <div class="footer">
-  <div class="container_12">
-    <div class="grid_12"><p>© 2011 Eugene Dorian, Alexander Lopez </p></div>
+  <div class="container">
+    <p>© 2011 Eugene Dorian, Alexander Lopez </p>
   </div>
-
 </div>
 
 </body>

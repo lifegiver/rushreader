@@ -1,9 +1,12 @@
-<% content_for :stylesheets do %>
+<% content_for :rawstyle do %>
   .header { position: fixed; top:0; left: 0; right: 0; z-index: 100}
   .footer, .cal {display: none}
 <% end %>
 
   <% if @article.domain.rule.nil? %>
+    <% content_for :javascript do %>
+      <%= javascript_include_tag "iframe-height" %>
+    <% end %>
     <iframe id="article-iframe" src="<%= @article.link %>" width="100%"></iframe>
   <% else %>
     <div id="article-content">

@@ -1,17 +1,19 @@
+<% content_for :javascript do %>
+  <%= javascript_include_tag "resizer" %>
+<% end %>
+
 <% content_for :cal do %>
   <div class="container">
-    <div class="row">
-      <div class="threecol"><%= link_to "Archive", archive_path, :remote => true, :class => "yesterday_link" %></div>
-      <div class="fivecol active">
-        <%= link_to "Today", articles_path, :remote => true, :class => "today_link" %>
-      </div>
+    <div class="left">
+    <%= link_to "Archive", archive_path, :remote => true, :class => "yesterday_link" %>
+    <%= link_to "Today", articles_path, :remote => true, :class => "today_link active" %>
+    </div>
 
       <% if last_read_time > 0 %>
         <%= javascript_include_tag "timer" %>
-        <div class="fourcol last"><div class="timer"><div id="fakeSeconds"><%= last_read_time %></div><div class="time"><span id="minutes"><%= ((last_read_time) / 60) < 10 ? "0" + ((last_read_time) / 60).to_s: (last_read_time) / 60 %></span>:<span id="seconds"><%= last_read_time-(((last_read_time)/ 60) * 60) < 10 ? "0" + (last_read_time-(((last_read_time)/ 60) * 60)).to_s : last_read_time-(((last_read_time)/ 60) * 60) %></span></div><div class="timer_desc">minutes before you can read any article</div></div></div>
+        <div class="fourcol last"><div class="timer"><div id="fakeSeconds"><%= last_read_time %></div><div class="time"><span id="minutes"><%= ((last_read_time) / 60) < 10 ? "0" + ((last_read_time) / 60).to_s: (last_read_time) / 60 %></span>:<span id="seconds"><%= last_read_time-((last_read_time / 60) * 60) < 10 ? "0" + (last_read_time-((last_read_time / 60) * 60)).to_s : last_read_time-((last_read_time / 60) * 60) %></span></div><div class="timer_desc">minutes before you can read any article</div></div></div>
       <% end %>
 
-    </div>
   </div>
 <% end %>
 
@@ -19,3 +21,4 @@
   <%= render @articles %>
   <%= render @readed_articles_today %>
 </ul>
+<p><%= last_read_time %></p>

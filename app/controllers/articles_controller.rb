@@ -42,7 +42,8 @@ class ArticlesController < ApplicationController
       if (@article.domain.rule != nil)
         @result = url.at_css(@article.domain.rule).children
       else
-        @result = "No data";
+        @result = "No data"
+        flash[:notice] = "No damqin!"
       end
 
       respond_to do |format|
