@@ -10,6 +10,11 @@ class ArticlesController < ApplicationController
     articles_quantity = APP_CONFIG['articles_quantity']
     @readed_articles_today = current_user.articles.where(:read => true, :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
     @articles = current_user.articles.where(:read => false)
+#<%= ((last_read_time) / 60) < 10 ? "0" + ((last_read_time) / 60).to_s: (last_read_time) / 60 %>
+#<%= last_read_time-(((last_read_time)/ 60) * 60) < 10 ? "0" + (last_read_time-(((last_read_time)/ 60) * 60)).to_s : last_read_time-(((last_read_time)/ 60) * 60) %>
+    timer_all_time = last_read_time   
+    @timer_minutes = timer_all_time / 60
+    @timer_seconds = timer_all_time-(((timer_all_time)/ 60) * 60)
 
     respond_to do |format|
       format.html # index.html.erb
