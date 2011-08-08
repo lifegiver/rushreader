@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Readissimo</title>
+  <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  
+  <%= stylesheet_link_tag "application" %>
+  <%= stylesheet_link_tag "home" %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag params[:controller] %>
+  <%= yield :javascript %>
+  <% if is_mobile_device? %>
+    <%= stylesheet_link_tag "mobile" %>
+    <%= javascript_include_tag "home-mobile" %>
+  <% else %>
+    <%= stylesheet_link_tag "desktop" %>
+  <% end %>
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css"><%= yield :rawstyle %></style>
+  <%= csrf_meta_tags %>
+</head>
+<body class="home">
+
+<div class="header">
+  <h1 class="logo"><span class="r">R</span>eadissimo</h1>
+</div>
+
+<div class="content">
+  <%= yield %>
+</div>
+
+<div class="footer">
+  <div class="divider"></div>
+  <p>© 2011 Eugene Dorian, Alexander Lopez </p>
+</div>
+
+</body>
+</html>

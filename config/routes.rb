@@ -6,11 +6,10 @@ Rushreader::Application.routes.draw do
 
   devise_for :users do
    get "/login" => "devise/sessions#new"
+   get "/register" => "devise/sessions#create"
   end
 
   root :to => 'home#index'
-  devise_for :users
-  #match "/articles/:id-:link" => "articles#show", :constraints => { :link => /\// }
   match 'articles' => 'articles#index', :as => 'user_root'
   match "/archive" => "articles#archive"
 
