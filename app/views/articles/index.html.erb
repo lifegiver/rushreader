@@ -2,23 +2,23 @@
   <%= javascript_include_tag "resizer" %>
 <% end %>
 
-<% content_for :cal do %>
-  <div class="container">
-    <div class="left">
-    <%= link_to "Archive", archive_path, :remote => true, :class => "yesterday_link" %>
-    <%= link_to "Today", articles_path, :remote => true, :class => "today_link active" %>
-    </div>
-
-      <% if !last_read_article.nil? && last_read_time > 0%>
-        <%= javascript_include_tag "timer" %>
-        <div class="fourcol last"><div class="timer"><div id="fakeSeconds"><%= last_read_time %></div><div class="time"><span id="minutes"><%= @timer_minutes < 10 ? "0" + @timer_minutes.to_s : @timer_minutes %></span>:<span id="seconds"><%= @timer_seconds < 10 ? "0" + (@timer_seconds).to_s : @timer_seconds %></span></div><div class="timer_desc">minutes before you can read any article</div></div></div>
-      <% end %>
-
-  </div>
+<% content_for :top do %>
+    <% if !last_read_article.nil? && last_read_time > 0%>
+      <div class="overlay"></div>
+      <%= javascript_include_tag "timer" %>
+      <div class="timer">
+        <div id="fakeSeconds"><%= last_read_time %></div>
+        <div class="timer-box">
+          <div class="time">
+            <span id="minutes"><%= @timer_minutes < 10 ? "0" + @timer_minutes.to_s : @timer_minutes %></span>:<span id="seconds"><%= @timer_seconds < 10 ? "0" + (@timer_seconds).to_s : @timer_seconds %></span>
+          </div>
+          <div class="timer_desc">minutes before you can read any article</div>
+        </div>
+      </div>
+    <% end %>
 <% end %>
 
 <ul id="articles" class="articles">
   <%= render @articles %>
   <%= render @readed_articles_today %>
 </ul>
-<p><%= last_read_time %></p>

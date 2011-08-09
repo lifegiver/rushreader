@@ -27,18 +27,41 @@
       left: 3px
       display: none
 
+.overlay
+  background: #fff
+  opacity: 0.8
+  position: absolute
+  top: 45px
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 999
+
 .timer
+  position: absolute
+  z-index: 999
+  top: 50%
+  left: 50%
+  .timer-box
+    background: #000
+    color: #fff
+    text-align: center
+    margin-left: -120px
+    margin-top: -110px
+    padding: 20px
+    width: 240px
+    height: 110px
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    
   #fakeSeconds
     display: none
-  float: right
   .time
-    margin-right: 20px
-    float: left
-    font-size: 26px
+    font-size: 65px
     font-weight: bold
   .timer_desc
     font-size: 12px
-    width: 250px
 
 #article-iframe
   position: absolute
@@ -102,19 +125,3 @@
     float: left
   .module-crunchbase
     display: none
-
-.cal
-  border-bottom: 1px solid #E6E6E6
-  height: 50px
-  padding-top: 32px
-  margin-top: -32px
-  margin-bottom: 32px
-  a
-    color: #999
-    text-decoration: none
-  .active
-    a
-      color: #333
-      font-size: 18px
-  .today
-    

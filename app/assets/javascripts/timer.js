@@ -5,8 +5,8 @@ $(function() {
     // if less than a minute remaining
       secs--;
       if (secs == 0) {
-        $('.time').text("Ready for the next one?");
-        $('.timer_desc').remove();
+        $('.overlay').fadeOut();
+        $('.timer').fadeOut();
         clearInterval(timer);
       } else {
         $("#minutes").text(getminutes());

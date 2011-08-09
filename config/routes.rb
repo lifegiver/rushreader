@@ -11,7 +11,6 @@ Rushreader::Application.routes.draw do
 
   root :to => 'home#index'
   match 'articles' => 'articles#index', :as => 'user_root'
-  match "/archive" => "articles#archive"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

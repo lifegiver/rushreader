@@ -22,6 +22,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= yield :top %>
 <div class="header">
   <div class="container">
     <h1 class="logo"><a href="<%= root_path %>">Readissimo</a></h1>
@@ -42,7 +43,6 @@
   </div>
 </div>
 
-<div class="cal"><%= yield :cal %></div>
 <% if notice %><div id="notice"><%= notice %></div><% end %>
 <div class="content">
   <div class="container">

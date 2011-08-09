@@ -50,13 +50,6 @@ $(document).ready(function() {
     });
   });
 
-  $('.cal a').click(function(){
-    $(this).parent().parent().children('.active').removeClass("active");
-    $(this).parent().addClass("active");
-  }).live('ajax:complete', function() {
-    //$('ul#articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");
-  });
-
   // Notice
   $('#notice').delay(10000).fadeOut(1000);
 });
