@@ -6,7 +6,7 @@ Rushreader::Application.routes.draw do
 
   devise_for :users do
    get "/login" => "devise/sessions#new"
-   get "/register" => "devise/sessions#create"
+   get "/register" => "devise/registrations#new"
   end
 
   root :to => 'home#index'
