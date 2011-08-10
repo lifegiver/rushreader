@@ -6,12 +6,12 @@
 
 <%= form_for(:session, :url => sessions_path) do |f| %>
 
-  <div class="field">
+  <div class="input">
     <% f.label :email %><br />
     <%= f.hidden_field :email, :value => session[:email] %>
   </div>
-  <div class="field">
-    <%= f.label :password %><br />
+  <div class="input">
+    <%= f.label "Enter the password" %><br />
     <%= f.password_field :password %>
   </div>
   <div class="actions">
