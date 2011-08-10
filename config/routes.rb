@@ -3,14 +3,18 @@ Rushreader::Application.routes.draw do
   resources :settings
   resources :articles
   resources :domains
+  resources :users
+  resources :sessions, :only => [:new, :create, :destroy]
 
-  devise_for :users do
-   get "/login" => "devise/sessions#new"
-   get "/register" => "devise/registrations#new"
-  end
 
   root :to => 'home#index'
   match 'articles' => 'articles#index', :as => 'user_root'
+
+  match '/signup', :to => 'users#new'
+  match '/signin', :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
+  match '/password', :to => 'users#edit'
+  match '/confirm', :to => 'users#confirm'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

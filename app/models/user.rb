@@ -1,25 +1,64 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  attr_accessor :password
+  attr_accessible :email, :password, :password_confirmation
+
   after_create :initial_settings
 
   has_many :articles
   has_one :setting
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i 
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :setting_attributes
+  validates :email, :presence => true,
+                    #:format => { :with => email_regex },
+                    :uniqueness => { :case_sensitive => false }
 
-  accepts_nested_attributes_for :setting
+  validates :password, :confirmation => true
+
+  before_save :encrypt_password
+
+  def has_password?(submitted_password)
+    encrypted_password == encrypt(submitted_password)
+  end
+
+  def self.authenticate(email, submitted_password)
+    user =find_by_email(email)
+    if (user && user.encrypted_password.nil?)
+      user
+    else
+      (user && user.has_password?(submitted_password)) ? user : nil
+    end 
+  end
+
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+  end  
 
   private
 
     def initial_settings
       initial_settings = Setting.new(:utc => "London", :interval_between_readings => 25, :time_for_reading => 5, :user_id => self.id)
       self.setting = initial_settings
+    end 
+
+    def encrypt_password
+      if !new_record?
+        self.salt = make_salt 
+        self.encrypted_password = encrypt(self.password)
+      end    
+    end
+
+    def encrypt(string)
+      secure_hash("#{salt}--#{string}")
+    end
+  
+    def make_salt
+       secure_hash("#{Time.now.utc}--#{password}")
+    end
+
+    def secure_hash(string)
+      Digest::SHA2.hexdigest(string)
     end
 
 end
@@ -28,18 +67,13 @@ end
 #
 # Table name: users
 #
-#  id                     :integer         not null, primary key
-#  email                  :string(255)     default(""), not null
-#  encrypted_password     :string(128)     default(""), not null
-#  reset_password_token   :string(255)
-#  reset_password_sent_at :datetime
-#  remember_created_at    :datetime
-#  sign_in_count          :integer         default(0)
-#  current_sign_in_at     :datetime
-#  last_sign_in_at        :datetime
-#  current_sign_in_ip     :string(255)
-#  last_sign_in_ip        :string(255)
-#  created_at             :datetime
-#  updated_at             :datetime
+#  id                 :integer         not null, primary key
+#  name               :string(255)
+#  email              :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  encrypted_password :string(255)
+#  salt               :string(255)
+#  admin              :boolean         default(FALSE)
 #
 

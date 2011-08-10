@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include ArticlesHelper
+  include SessionsHelper
   enable_mobile_fu
   layout :layout_by_resource
 

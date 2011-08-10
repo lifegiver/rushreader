@@ -15,6 +15,18 @@
   </div>
   <div class="divider"></div>
   <p class="login-box">
-  <%= link_to "Login", "/login" %> <span>or</span> <%= link_to "Register", "/register" %>
+  <%# link_to "Login", "/signin" %> <span></span> <%# link_to "Register", "/signup" %>
+    Sign in
+    <%= form_for(:session, :url => { :action => "password_check" }) do |f| %>
+      <div class="input">
+        <%= f.label "Your username" %><br />
+        <%= f.text_field :email %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Login or register" %><br />
+      </div>
+    <% end %>
   </p>
 </div>
+
+
