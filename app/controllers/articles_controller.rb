@@ -12,9 +12,11 @@ class ArticlesController < ApplicationController
     @articles = current_user.articles.where(:read => false)
 #<%= ((last_read_time) / 60) < 10 ? "0" + ((last_read_time) / 60).to_s: (last_read_time) / 60 %>
 #<%= last_read_time-(((last_read_time)/ 60) * 60) < 10 ? "0" + (last_read_time-(((last_read_time)/ 60) * 60)).to_s : last_read_time-(((last_read_time)/ 60) * 60) %>
-    timer_all_time = last_read_time   
-    @timer_minutes = timer_all_time / 60
-    @timer_seconds = timer_all_time-(((timer_all_time)/ 60) * 60)
+    if !last_read_article.nil?    
+      timer_all_time = last_read_time   
+      @timer_minutes = timer_all_time / 60
+      @timer_seconds = timer_all_time-(((timer_all_time)/ 60) * 60)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
