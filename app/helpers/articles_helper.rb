@@ -3,6 +3,11 @@ module ArticlesHelper
 #  def current_user?(user)
 #    user == current_user
 #  end
+  require 'albino'
+
+  def highlight(text)
+    Albino.colorize(text, :css).to_s.html_safe
+  end 
 
   def deny_access
     redirect_to login_path, :notice => "Please sign in to access this page."

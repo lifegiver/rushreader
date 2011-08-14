@@ -1,13 +1,20 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"><%# notice %></p>
 
 <p>
   <b>Name:</b>
   <%= @domain.name %>
 </p>
 
+<% if current_user.admin? %>
 <p>
   <b>Rule:</b>
   <%= @domain.rule %>
+</p>
+<% end %>
+
+<p>
+  <b>Custom_css:</b>
+  <div class="custom_css"><%= highlight(@domain.custom_css) %></div>
 </p>
 
 

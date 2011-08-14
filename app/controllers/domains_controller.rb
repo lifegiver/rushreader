@@ -1,6 +1,9 @@
 class DomainsController < ApplicationController
   # GET /domains
   # GET /domains.json
+  
+  before_filter :admin_user, :only => [:destroy, :new, :create] 
+
   def index
     @domains = Domain.all
 
@@ -58,7 +61,6 @@ class DomainsController < ApplicationController
   # PUT /domains/1.json
   def update
     @domain = Domain.find(params[:id])
-
     respond_to do |format|
       if @domain.update_attributes(params[:domain])
         format.html { redirect_to @domain, notice: 'Domain was successfully updated.' }
@@ -67,6 +69,8 @@ class DomainsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @domain.errors, status: :unprocessable_entity }
       end
+    new_rule = Rule.new(:custom_css => @domain.custom_css, :domain_name => @domain.name, :user_id => current_user.id, :user_name => current_user.email)
+    new_rule.save
     end
   end
 

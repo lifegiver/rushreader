@@ -1,4 +1,12 @@
-<h1>Editing domain</h1>
+<h1>Editing domain <%= "#{@domain.name}" %></h1>
+
+<% last_rule = Rule.find(:first, :order => "updated_at DESC", :limit => 1,
+                               :conditions => { :domain_name => @domain.name } ) %>
+<% if !last_rule.nil? %>
+Last rule:<br/>
+<div class="custom_css"><%= highlight(last_rule.custom_css) %></div>
+Made by <%= last_rule.user_name %>.<br/><br/>
+<% end %>
 
 <%= render 'form' %>
 

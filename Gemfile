@@ -19,6 +19,7 @@ gem 'nokogiri', "~> 1.5.0"
 gem 'sanitize', "~> 2.0.3"
 gem 'annotate', :git => 'git://github.com/jeremyolliver/annotate_models.git', :branch => 'rake_compatibility'
 gem 'mobile_fu-rails3', :git => 'https://github.com/jyro215/mobile-fu'
+gem "albino"
 # Use unicorn as the web server
 # gem 'unicorn'
 
