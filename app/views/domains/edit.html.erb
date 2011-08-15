@@ -3,9 +3,9 @@
 <% last_rule = Rule.find(:first, :order => "updated_at DESC", :limit => 1,
                                :conditions => { :domain_name => @domain.name } ) %>
 <% if !last_rule.nil? %>
-Last rule:<br/>
+Last custom CSS rule. Changes made by <%= last_rule.user_name %>.<br/>
 <div class="custom_css"><%= highlight(last_rule.custom_css) %></div>
-Made by <%= last_rule.user_name %>.<br/><br/>
+<br/>
 <% end %>
 
 <%= render 'form' %>

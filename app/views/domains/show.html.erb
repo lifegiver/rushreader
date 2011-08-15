@@ -1,7 +1,7 @@
 <p id="notice"><%# notice %></p>
 
 <p>
-  <b>Name:</b>
+  <b>Domain:</b>
   <%= @domain.name %>
 </p>
 
@@ -13,9 +13,14 @@
 <% end %>
 
 <p>
-  <b>Custom_css:</b>
+  <b>Current custom CSS rule:</b>
   <div class="custom_css"><%= highlight(@domain.custom_css) %></div>
 </p>
+<% last_rule = Rule.find(:first, :order => "updated_at DESC", :limit => 1,
+                               :conditions => { :domain_name => @domain.name } ) %>
+<% if !last_rule.nil? %>
+  Last changes made by <%= last_rule.user_name %>.<br/><br/>
+<% end %>
 
 
 <%= link_to 'Edit', edit_domain_path(@domain) %> |
