@@ -9,9 +9,12 @@ class SessionsController < ApplicationController
                              params[:session][:password])
     session[:email] = nil
     if user.nil?
-      flash.now[:error] = "Invalid email/password combination."
-      @title = "Sign in"
-      render 'new'
+      respond_to do |format|
+        flash.now[:error] = "Invalid email/password combination."
+          format.js { render :partial => "sessions/form", :layout => !request.xhr?, :status => 401 }
+          format.html { render 'new' }
+      end
+
     else
       sign_in user
       redirect_back_or user

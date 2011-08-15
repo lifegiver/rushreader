@@ -16,7 +16,16 @@ module SessionsHelper
         redirect_back_or user
       else
         session[:email] = params[:session][:email]
-        redirect_to "/signin", :flash => { :failure => "The account #{session[:email]} is protected by password" }
+        respond_to do |format|
+          format.js do
+              render :partial => "sessions/form", :layout => false, :status => 401
+          end
+          format.html do
+              redirect_to signin_path
+          end
+        end
+
+        #:flash => { :failure => "The account #{session[:email]} is protected by password"
       end
     end
   end

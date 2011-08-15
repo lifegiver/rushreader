@@ -1,0 +1,11 @@
+<%= form_for :session, :url => sessions_path, :remote => true ,:html => { :id => "password_form" } do |f| %>
+  <%= f.hidden_field :email, :value => session[:email] %>
+    <%= f.label :password %><br/>
+  <div class="input">
+    <%= f.password_field :password %>
+    <button>sign in</button>
+  </div>
+  <% flash.each do |key, value|%>
+    <p class ="flash <%= key %>"><%= value %></p>
+  <% end %>
+<% end %>

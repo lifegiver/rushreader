@@ -54,6 +54,7 @@ body.home
             
     .login-box
       text-align: center
+      position: relative
       a
         font-size: 28px
         margin: 0 20px
@@ -61,7 +62,57 @@ body.home
       span
         font-style: italic
         font-family: "Georgia", serif
+        color: #fff
+        line-height: 28px
+        position: absolute
+        opacity: 0.8
+        width: 139px
+        height: 30px
+        &.arrow_left
+          background: url(data:image/gif;base64,R0lGODlhiwAeAKIAAP92dv+8vP/x8f/u7v9ERP9BQf////8zMyH5BAAAAAAALAAAAACLAB4AAAOtCLfc/jDKSau9OAbDex9FJo5kaWaE4K3B6b5wHAHrqsh4rltbzYG7oHCX8nFaw6TyRDMabsuotNLzAafYLKNoRGq/0qYRCi4Pq7Wrea3j+rzseEzsI8vvJvRKje+L3DVwfoMWdCyEiIVGAgSJjhEFA2OPlA56HYKVjoYdjJqVkZOflJdHo5ScHJ6niaF1rI6lBpmweKkGq7V+rjV2uneytL9st7nDcrw2x32yBgkAOw==) no-repeat
+          left: 60px
+        &.arrow_right
+          background: url(data:image/gif;base64,R0lGODlhiwAeAKIAAP92dv+8vP/x8f/u7v9ERP9BQf////8zMyH5BAAAAAAALAAAAACLAB4AAAOuaLob9zDKSau9OOvNK2CMQHRkaZ5oVwzgAqRwLM9V0CoOre+89t2innDYW90ML6JymbLdcsyoNPNrBafYLMR4S2q/UmcLCi4Tq6Crec3jtrzs+EwMIsvvKHRohO+b3CBwfoMadIGEiIVHBgMFiY8VBAKLdpCWeoeWmg+GDI2bmpKUoJqYDIKkhJ0Ln6mJokeVrn2mLrOJqwqtt36wT7yEtQqowHG5jI7FeL5jyrQJADs=) no-repeat
+          right: 60px
 
+
+      .input
+        display: inline-block
+        position: relative
+        margin-bottom: 20px
+        #session_email, #session_password
+          background: url(bg-input.png) repeat-x
+          border: 1px solid #666
+          font-size: 18px
+          padding: 2px
+          font-family: Georgia, serif
+          text-align: center
+          -webkit-border-radius: 2px
+          -moz-border-radius: 2px
+          border-radius: 2px
+          height: 26px
+          width: 250px
+          &:hover
+            border: 1px solid #666
+          &.label
+            font-style: italic
+            border: 1px solid #ccc
+            color: #B3B3B3
+        button
+          opacity: 0.1
+          position: absolute
+          right: 5px
+          top: 9px
+          padding: 0
+          border: none
+          background: url(btn-enter.png) no-repeat
+          width: 16px
+          height: 15px
+          text-indent: -9999px
+      .password_content
+        label
+          font-style: italic
+          color: #B3B3B3
 
   .divider
     border-bottom: 1px dashed #B3B3B3
