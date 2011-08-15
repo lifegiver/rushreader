@@ -4,17 +4,4 @@
   <div class ="flash <%= key %>"><%= value %></div>
 <% end %><br/>
 
-<%= form_for(:session, :url => sessions_path) do |f| %>
-
-  <div class="input">
-    <% f.label :email %><br />
-    <%= f.hidden_field :email, :value => session[:email] %>
-  </div>
-  <div class="input">
-    <%= f.label "Enter the password" %><br />
-    <%= f.password_field :password %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Sign in" %><br />
-  </div>
-<% end %>
+<%= render "form" %>

@@ -11,7 +11,7 @@ Rushreader::Application.routes.draw do
   match 'articles' => 'articles#index', :as => 'user_root'
 
   match '/signup', :to => 'users#new'
-  match '/signin', :to => 'sessions#new'
+  match 'signin', :to => 'sessions#new', :as => 'signin'
   match '/signout', :to => 'sessions#destroy'
   match '/password', :to => 'users#edit'
   match '/confirm', :to => 'users#confirm'
