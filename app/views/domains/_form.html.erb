@@ -1,3 +1,14 @@
+<% content_for :javascript do %>
+  <%= javascript_include_tag "javascripts/codemirror/lib/codemirror.js" %> 
+  <link rel="stylesheet" href="/assets/codemirror/lib/codemirror.css">
+  <%= javascript_include_tag "javascripts/codemirror/mode/css/css.js" %>
+  <link rel="stylesheet" href="/assets/codemirror/theme/default.css">
+<% end %>
+
+<script type="text/javascript" language="javascript"> 
+  var myCodeMirror = CodeMirror.fromTextArea(domain_custom_css);
+</script>
+
 <%= form_for(@domain) do |f| %>
   <% if @domain.errors.any? %>
     <div id="error_explanation">
@@ -11,15 +22,21 @@
     </div>
   <% end %>
 
+  <% if current_user.admin? %>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
     <%= f.label :rule %><br />
-    <%= f.text_field :rule %>
+    <%= f.text_area :rule %>
+  </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :custom_css %><br />
+    <%= f.text_area :custom_css %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update custom css"%>
   </div>
 <% end %>

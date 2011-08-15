@@ -1,4 +1,5 @@
 class Article < ActiveRecord::Base
+  
   #before_save :set_updated_at
   after_create  :define_domain
 
@@ -47,9 +48,9 @@ end
 #  link       :string(255)
 #  read       :boolean         default(FALSE)
 #  title      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
 #  user_id    :integer         default(0)
 #  domain_id  :integer
+#  created_at :datetime
+#  updated_at :datetime
 #
 

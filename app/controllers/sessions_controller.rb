@@ -11,8 +11,8 @@ class SessionsController < ApplicationController
     if user.nil?
       respond_to do |format|
         flash.now[:error] = "Invalid email/password combination."
-          format.js { render :partial => "sessions/form", :layout => !request.xhr?, :status => 401 }
-          format.html { render 'new' }
+        format.js { render :partial => "sessions/form", :layout => !request.xhr?, :status => 401 }
+        format.html { render 'new' }
       end
 
     else

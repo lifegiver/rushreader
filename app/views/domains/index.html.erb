@@ -3,7 +3,10 @@
 <table>
   <tr>
     <th>Name</th>
+    <% if current_user.admin? %>
     <th>Rule</th>
+    <% end %>
+    <th>Custom css</th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,14 +15,17 @@
 <% @domains.each do |domain| %>
   <tr>
     <td><%= domain.name %></td>
+    <% if current_user.admin? %>
     <td><%= domain.rule %></td>
+    <% end %>
+    <td class="custom_css"><%= highlight(domain.custom_css) %></td>
     <td><%= link_to 'Show', domain %></td>
     <td><%= link_to 'Edit', edit_domain_path(domain) %></td>
+    <% if current_user.admin? %>
     <td><%= link_to 'Destroy', domain, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Domain', new_domain_path %>

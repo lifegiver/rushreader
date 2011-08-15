@@ -62,7 +62,7 @@ module SessionsHelper
 
   def deny_access
     store_location
-    redirect_to signin_path, :notice => "Please sign in to access this page."
+    redirect_to root_path, :notice => "Please sign in to access this page."
   end
 
   def store_location
@@ -76,6 +76,10 @@ module SessionsHelper
 
   def clear_return_to
     session[:return_to] = nil
+  end
+
+  def admin_user
+    redirect_to(root_path) if (!current_user.admin?)
   end
 
   private
