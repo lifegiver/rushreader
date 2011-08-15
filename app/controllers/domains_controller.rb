@@ -13,6 +13,12 @@ class DomainsController < ApplicationController
     end
   end
 
+  def load_from_history
+    @domain = Domain.find(params[:id])
+    @domain.update_attributes(:custom_css => params[:custom_css], :rule => params[:rule])
+    redirect_to edit_domain_path
+  end
+
   def index
     @domains = Domain.all
 

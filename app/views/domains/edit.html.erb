@@ -23,9 +23,9 @@
     <th><%= link_to "Show", :controller => "domains",
                             :action => "history", :id => rule.domain_id, :rule_id => rule.id %>,
         <%= link_to "Use",  :controller => "domains",
-                            :action => "update", :id => rule.domain_id, 
-                            :domain => { :rule => rule.rule, :custom_css => rule.custom_css },
-                            :method => :put %>
+                            :action => "load_from_history", :id => rule.domain_id, 
+                            :custom_css => rule.custom_css,
+                            :rule => rule.rule %>
 
         
   </tr>
