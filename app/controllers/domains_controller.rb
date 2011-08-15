@@ -4,6 +4,15 @@ class DomainsController < ApplicationController
   
   before_filter :admin_user, :only => [:destroy, :new, :create] 
 
+  def history
+    @domain = Domain.find(params[:id])
+    @rule = Rule.find(params[:rule_id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @domain }
+    end
+  end
+
   def index
     @domains = Domain.all
 
@@ -69,7 +78,7 @@ class DomainsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @domain.errors, status: :unprocessable_entity }
       end
-    new_rule = Rule.new(:custom_css => @domain.custom_css, :domain_name => @domain.name, :user_id => current_user.id, :user_name => current_user.email)
+    new_rule = Rule.new(:custom_css => @domain.custom_css, :domain_name => @domain.name, :user_id => current_user.id, :user_name => current_user.email, :rule => @domain.rule, :domain_id => @domain.id)
     new_rule.save
     end
   end

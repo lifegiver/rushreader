@@ -1,12 +1,36 @@
 <h1>Editing domain <%= "#{@domain.name}" %></h1>
 
-<% last_rule = Rule.find(:first, :order => "updated_at DESC", :limit => 1,
-                               :conditions => { :domain_name => @domain.name } ) %>
-<% if !last_rule.nil? %>
-Last custom CSS rule. Changes made by <%= last_rule.user_name %>.<br/>
-<div class="custom_css"><%= highlight(last_rule.custom_css) %></div>
-<br/>
+<%# last_rule = Rule.find(:first, :order => "updated_at DESC", :limit => 1,
+                                 :conditions => { :domain_name => @domain.name } ) %>
+<% all_rules = Rule.find(:all,   :conditions => { :domain_name => @domain.name } ) %>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th></th>
+    <th>User</th>
+    <th></th>
+    <th>Actions</th>
+  </tr>
+
+
+<% all_rules.each do |rule| %>
+  <tr>
+    <th><%= rule.updated_at.strftime("%Y-%m-%d %H:%M") %></th>
+    <th></th>
+    <th><%= rule.user_name %></th>
+    <th></th>
+    <th><%= link_to "Show", :controller => "domains",
+                            :action => "history", :id => rule.domain_id, :rule_id => rule.id %>,
+        <%= link_to "Use",  :controller => "domains",
+                            :action => "update", :id => rule.domain_id, 
+                            :domain => { :rule => rule.rule, :custom_css => rule.custom_css },
+                            :method => :put %>
+
+        
+  </tr>
 <% end %>
+</table>
 
 <%= render 'form' %>
 

@@ -6,7 +6,6 @@ Rushreader::Application.routes.draw do
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
 
-
   root :to => 'home#index'
   match 'articles' => 'articles#index', :as => 'user_root'
 

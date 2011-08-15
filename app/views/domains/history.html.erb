@@ -1,0 +1,11 @@
+<%= @rule.user_name %> made this rule at <%= @rule.updated_at.strftime("%Y-%m-%d %H:%M") %><br/><br/>
+
+Domain:<br/>
+<%= @rule.domain_name %><br/><br/>
+
+Rule:<br/>
+<%= @rule.rule %><br/><br/>
+
+Custom CSS rule:<br/>
+<div class="custom_css"><%= highlight(@rule.custom_css) %></div>
+<br/>
