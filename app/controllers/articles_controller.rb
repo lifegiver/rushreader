@@ -1,10 +1,7 @@
 class ArticlesController < ApplicationController
-  # GET /articles
-  # GET /articles.json
-
-  before_filter :authenticate, :only => [:index, :new, :create, :edit,
-                                         :update, :archive, :show]
+  before_filter :authenticate, :only => [:index, :new, :create, :edit, :update, :archive, :show]
   before_filter :correct_user, :only => [:show, :destroy]
+  layout :layout_by_method
 
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
@@ -35,13 +32,12 @@ class ArticlesController < ApplicationController
   #    logger.info "Is it read? => #{@article.read}"
   #    logger.info "========================="
 
-      url = Nokogiri::HTML(open(@article.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
-      url.encoding = 'UTF-8'
-      if (@article.domain.rule != nil)
-        @result = url.at_css(@article.domain.rule).children
+      if (@article.domain.rule.nil?)
+        @result = "empty"
       else
-        @result = "No data"
-        flash[:notice] = "No damqin!"
+        url = Nokogiri::HTML(open(@article.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
+        url.encoding = 'UTF-8'
+        @result = url.at_css(@article.domain.rule).children
       end
 
       respond_to do |format|
@@ -130,7 +126,15 @@ class ArticlesController < ApplicationController
     #article_obj.update_attributes(params[:article])
   end
 
-   private
+  private
+
+    def layout_by_method
+      if params[:action] == "show"
+        "show"
+      else
+        "application"
+      end
+    end
 
     def authenticate
       deny_access unless signed_in?
