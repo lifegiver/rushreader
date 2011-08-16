@@ -122,7 +122,11 @@ class ArticlesController < ApplicationController
     require 'open-uri'
     url = Nokogiri::HTML(open(article_obj.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
     result = url.xpath('/html/head/title').text
-    article_obj.title = result
+    if result.blank?
+      article_obj.title = article_obj.link
+    else
+      article_obj.title = result
+    end
     #article_obj.update_attributes(params[:article])
   end
 
