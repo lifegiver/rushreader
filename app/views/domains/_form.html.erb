@@ -1,12 +1,14 @@
 <% content_for :javascript do %>
-  <%= javascript_include_tag "javascripts/codemirror/lib/codemirror.js" %> 
-  <link rel="stylesheet" href="/assets/codemirror/lib/codemirror.css">
-  <%= javascript_include_tag "javascripts/codemirror/mode/css/css.js" %>
-  <link rel="stylesheet" href="/assets/codemirror/theme/default.css">
+  <%= javascript_include_tag "codemirror/lib/codemirror.js" %>
+  <%= stylesheet_link_tag "codemirror/lib/codemirror.css" %>
+  <%= javascript_include_tag "codemirror/mode/css/css.js" %>
+  <%= stylesheet_link_tag "codemirror/theme/default.css" %>
 <% end %>
 
 <script type="text/javascript" language="javascript"> 
-  var myCodeMirror = CodeMirror.fromTextArea(domain_custom_css);
+  $(document).ready(function() {
+    var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("domain_custom_css"), {lineNumbers: true});
+  });
 </script>
 
 <%= form_for(@domain) do |f| %>
