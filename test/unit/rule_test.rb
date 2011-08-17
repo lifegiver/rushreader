@@ -18,5 +18,7 @@ end
 #  created_at  :datetime
 #  updated_at  :datetime
 #  rule        :text
+#  domain_id   :integer
+#  title_rule  :text
 #
 

@@ -16,5 +16,6 @@ end
 #  created_at :datetime
 #  updated_at :datetime
 #  custom_css :text
+#  title_rule :text
 #
 

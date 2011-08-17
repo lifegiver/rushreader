@@ -15,7 +15,8 @@ class DomainsController < ApplicationController
 
   def load_from_history
     @domain = Domain.find(params[:id])
-    @domain.update_attributes(:custom_css => params[:custom_css], :rule => params[:rule])
+    @domain.update_attributes(:custom_css => params[:custom_css], :rule => params[:rule],
+                              :title_rule => params[:title_rule])
     redirect_to edit_domain_path
   end
 
@@ -84,7 +85,7 @@ class DomainsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @domain.errors, status: :unprocessable_entity }
       end
-    new_rule = Rule.new(:custom_css => @domain.custom_css, :domain_name => @domain.name, :user_id => current_user.id, :user_name => current_user.email, :rule => @domain.rule, :domain_id => @domain.id)
+    new_rule = Rule.new(:custom_css => @domain.custom_css, :domain_name => @domain.name, :user_id => current_user.id, :user_name => current_user.email, :rule => @domain.rule, :domain_id => @domain.id, :title_rule => @domain.title_rule)
     new_rule.save
     end
   end
