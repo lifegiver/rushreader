@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ArticleTest < ActiveSupport::TestCase
+class UserArticleTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
@@ -8,12 +8,12 @@ end
 
 # == Schema Information
 #
-# Table name: articles
+# Table name: user_articles
 #
 #  id         :integer         not null, primary key
-#  link       :string(255)
-#  title      :string(255)
-#  domain_id  :integer
+#  user_id    :integer
+#  article_id :integer
+#  read       :boolean
 #  created_at :datetime
 #  updated_at :datetime
 #

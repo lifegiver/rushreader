@@ -3,13 +3,15 @@ class Article < ActiveRecord::Base
   #before_save :set_updated_at
   after_create  :define_domain
 
-  belongs_to :user
+  
+  has_many :user_articles
+  has_many :users, :through => :user_articles
+
   belongs_to :domain
 
   def to_param
     "#{id}-#{link.parameterize}"
   end
-
 
   private
 
@@ -46,9 +48,7 @@ end
 #
 #  id         :integer         not null, primary key
 #  link       :string(255)
-#  read       :boolean         default(FALSE)
 #  title      :string(255)
-#  user_id    :integer         default(0)
 #  domain_id  :integer
 #  created_at :datetime
 #  updated_at :datetime

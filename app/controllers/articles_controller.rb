@@ -1,12 +1,16 @@
 class ArticlesController < ApplicationController
   before_filter :authenticate, :only => [:index, :new, :create, :edit, :update, :archive, :show]
-  before_filter :correct_user, :only => [:show, :destroy]
+  before_filter :correct_user, :only => [:destroy]
   layout :layout_by_method
 
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
-    @readed_articles_today = current_user.articles.where(:read => true, :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
-    @articles = current_user.articles.where(:read => false)
+    readed_articles = %(SELECT article_id FROM user_articles WHERE user_id = (#{current_user.id}) AND read = 1)
+    @readed_articles_today = current_user.articles.where("article_id IN (#{readed_articles})",
+                            :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
+    @articles = current_user.articles.where("article_id NOT IN (#{readed_articles})")
+    #@readed_articles_today = current_user.articles.where(:read => true, :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
+    #@articles = current_user.articles.where(:read => false)
 
     if !last_read_article.nil?
       timer_all_time = last_read_time
@@ -26,8 +30,11 @@ class ArticlesController < ApplicationController
     require 'open-uri'
     last_article = last_read_article
     @article = Article.find(params[:id])
-    if last_article.nil? || (!last_article.nil? && time_from_last_reading > current_user.setting.interval_between_readings.minutes) || @article.read?
-      @article.read = true
+    user_article = UserArticle.find(:first, :limit => 1,
+                                    :conditions => { :user_id => current_user.id,
+                                    :article_id => @article.id })
+    if last_article.nil? || (!last_article.nil? && time_from_last_reading > current_user.setting.interval_between_readings.minutes) || user_article.read?
+      user_article.read = true
   #    logger.info "========================="
   #    logger.info "Is it read? => #{@article.read}"
   #    logger.info "========================="
@@ -44,7 +51,7 @@ class ArticlesController < ApplicationController
         format.html # show.html.erb
         format.json { render json: @article }
       end
-      @article.save
+      user_article.save
     else
       #visit_in = current_user.setting.interval_between_readings.minutes - time_from_last_reading
       #"Wait for #{(visit_in / 1.minutes).floor} minutes"
@@ -71,12 +78,10 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
+    exist_article = Article.find_by_link(params[:article][:link])
+    if exist_article.nil?
       @article = Article.new(params[:article])
-      @article.user = current_user
       get_article_title(@article)
-#      logger.info "========================="
-#      logger.info "Is it read? => #{@article.read}"
-#      logger.info "========================="
       respond_to do |format|
         if @article.save
           #format.html { redirect_to @article, notice: 'Article was successfully created.' }
@@ -86,7 +91,20 @@ class ArticlesController < ApplicationController
           format.html { render action: "new" }
           format.json { render json: @article.errors, status: :unprocessable_entity }
         end
+        new_article_record = UserArticle.create(:user_id => current_user.id,
+                                            :article_id => @article.id, :read => false)
       end
+    else
+     # if read?(exist_article)
+      #  read = true
+     # else
+     #   read = false
+     # end
+      new_article_record = UserArticle.create(:user_id => current_user.id,
+                                               :article_id => exist_article.id,
+                                               :read => read?(exist_article))
+    end
+    new_article_record.save
   end
 
 

@@ -1,23 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  link: MyString
+  user_id: 1
+  article_id: 1
   read: false
-  title: MyString
 
 two:
-  link: MyString
+  user_id: 1
+  article_id: 1
   read: false
-  title: MyString
 
 # == Schema Information
 #
-# Table name: articles
+# Table name: user_articles
 #
 #  id         :integer         not null, primary key
-#  link       :string(255)
-#  title      :string(255)
-#  domain_id  :integer
+#  user_id    :integer
+#  article_id :integer
+#  read       :boolean
 #  created_at :datetime
 #  updated_at :datetime
 #
