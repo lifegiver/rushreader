@@ -2,7 +2,7 @@
 
 <%# last_rule = Rule.find(:first, :order => "updated_at DESC", :limit => 1,
                                  :conditions => { :domain_name => @domain.name } ) %>
-<% all_rules = Rule.find(:all,   :conditions => { :domain_name => @domain.name } ) %>
+<% domain_history = History.find(:all,   :conditions => { :domain_name => @domain.name } ) %>
 
 <table>
   <tr>
@@ -14,7 +14,7 @@
   </tr>
 
 
-<% all_rules.each do |rule| %>
+<% domain_history.each do |rule| %>
   <tr>
     <th><%= rule.updated_at.strftime("%Y-%m-%d %H:%M") %></th>
     <th></th>

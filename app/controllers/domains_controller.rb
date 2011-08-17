@@ -85,8 +85,8 @@ class DomainsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @domain.errors, status: :unprocessable_entity }
       end
-    new_rule = Rule.new(:custom_css => @domain.custom_css, :domain_name => @domain.name, :user_id => current_user.id, :user_name => current_user.email, :rule => @domain.rule, :domain_id => @domain.id, :title_rule => @domain.title_rule)
-    new_rule.save
+    new_history = History.new(:custom_css => @domain.custom_css, :domain_name => @domain.name, :user_id => current_user.id, :user_name => current_user.email, :rule => @domain.rule, :domain_id => @domain.id, :title_rule => @domain.title_rule)
+    new_history.save
     end
   end
 

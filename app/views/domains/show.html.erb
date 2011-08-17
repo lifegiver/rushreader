@@ -20,7 +20,7 @@
   <b>Current custom CSS rule:</b>
   <div class="custom_css"><%= highlight(@domain.custom_css) %></div>
 </p>
-<% last_rule = Rule.find(:first, :order => "updated_at DESC", :limit => 1,
+<% last_rule = History.find(:first, :order => "updated_at DESC", :limit => 1,
                                :conditions => { :domain_name => @domain.name } ) %>
 <% if !last_rule.nil? %>
   Last changes made by <%= last_rule.user_name %>.<br/><br/>
