@@ -37,9 +37,11 @@ module ArticlesHelper
   def last_read_article
     duplicate_article = UserArticle.find(:first, :order => "updated_at DESC", :limit => 1,
                                          :conditions => {:user_id => current_user.id, :read => true})
-    last_read_article = UserArticle.find(:first, :limit => 1, 
+    if !duplicate_article.nil?
+      last_read_article = UserArticle.find(:first, :limit => 1, 
                                          :conditions => {:article_id => duplicate_article.id, 
                                                          :user_id => current_user.id})
+    end
   end
 
   def time_from_last_reading

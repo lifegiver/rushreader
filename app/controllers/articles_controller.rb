@@ -83,28 +83,26 @@ class ArticlesController < ApplicationController
       @article = Article.new(params[:article])
       get_article_title(@article)
       respond_to do |format|
-        if @article.save
+      @article.save
+        #if @article.save
           #format.html { redirect_to @article, notice: 'Article was successfully created.' }
-          format.html { redirect_to articles_url }
-          format.js
-        else
-          format.html { render action: "new" }
-          format.json { render json: @article.errors, status: :unprocessable_entity }
-        end
+       #   format.html { redirect_to articles_url }
+       #   format.js
+       # else
+       #  format.html { render action: "new" }
+       #   format.json { render json: @article.errors, status: :unprocessable_entity }
+       # end
         new_article_record = UserArticle.create(:user_id => current_user.id,
                                             :article_id => @article.id, :read => false)
       end
     else
-     # if read?(exist_article)
-      #  read = true
-     # else
-     #   read = false
-     # end
-      new_article_record = UserArticle.create(:user_id => current_user.id,
+      new_article_record = UserArticle.create( :user_id => current_user.id,
                                                :article_id => exist_article.id,
-                                               :read => read?(exist_article))
+                                               :read => false)
     end
-    new_article_record.save
+      new_article_record.save
+      format.html { redirect_to articles_url }
+      format.js
   end
 
 
