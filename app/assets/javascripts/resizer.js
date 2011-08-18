@@ -1,17 +1,21 @@
 var resizenow = (function() {
   var browserwidth = $(window).width();
   if (browserwidth > 1080) {
+    $('ul#articles').children(".clear").remove();
     $('.article').width("20%");
-    $('.article').height("80px");
+    $('ul#articles > li:nth-child(5n)').after("<div class='clear'></div>");
   } else if (browserwidth <= 768 && browserwidth >= 480) {
+    $('ul#articles').children(".clear").remove();
     $('.article').width("50%");
-    $('.article').height("50px");
+    $('ul#articles > li:nth-child(2n)').after("<div class='clear'></div>");
   } else if (browserwidth <= 480) {
+    $('ul#articles').children(".clear").remove();
     $('.article').width("100%");
-    $('.article').height("50px");
+    $('.article').height("auto");
   } else {
+    $('ul#articles').children(".clear").remove();
     $('.article').width("33%");
-    $('.article').height("80px");
+    $('ul#articles > li:nth-child(3n)').after("<div class='clear'></div>");
   }
 
 });
