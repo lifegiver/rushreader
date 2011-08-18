@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation
 
   has_many :user_articles
-  has_many :articles, :through => :user_articles
+  has_many :articles, :through => :user_articles, :class_name => 'Article', :source => :article, :conditions => ['user_articles.read = ?',true]
   has_one :setting
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i 

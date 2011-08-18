@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
     @readed_articles_today = current_user.articles.where("article_id IN (#{readed_articles})",
                             :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
     @articles = current_user.articles.where("article_id NOT IN (#{readed_articles})")
-    #@readed_articles_today = current_user.articles.where(:read => true, :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
+    #@readed_articles_today = current_user.read_articles
     #@articles = current_user.articles.where(:read => false)
 
     if !last_read_article.nil?
@@ -78,31 +78,17 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    exist_article = Article.find_by_link(params[:article][:link])
-    if exist_article.nil?
-      @article = Article.new(params[:article])
-      get_article_title(@article)
-      respond_to do |format|
-      @article.save
-        #if @article.save
-          #format.html { redirect_to @article, notice: 'Article was successfully created.' }
-       #   format.html { redirect_to articles_url }
-       #   format.js
-       # else
-       #  format.html { render action: "new" }
-       #   format.json { render json: @article.errors, status: :unprocessable_entity }
-       # end
-        new_article_record = UserArticle.create(:user_id => current_user.id,
-                                            :article_id => @article.id, :read => false)
+    @article = Article.new(params[:article])
+    get_article_title(@article)
+    respond_to do |format|
+      if @article.save
+        format.html { redirect_to articles_url }
+        format.js
+      else
+        format.html { render action: "new" }
+        format.json { render json: @article.errors, status: :unprocessable_entity }
       end
-    else
-      new_article_record = UserArticle.create( :user_id => current_user.id,
-                                               :article_id => exist_article.id,
-                                               :read => false)
     end
-      new_article_record.save
-      format.html { redirect_to articles_url }
-      format.js
   end
 
 

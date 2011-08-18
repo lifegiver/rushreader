@@ -3,7 +3,7 @@ class CreateUserArticles < ActiveRecord::Migration
     create_table :user_articles do |t|
       t.integer :user_id
       t.integer :article_id
-      t.boolean :read
+      t.boolean :read, :default => false
 
       t.timestamps
     end

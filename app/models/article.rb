@@ -1,9 +1,6 @@
 class Article < ActiveRecord::Base
-  
-  #before_save :set_updated_at
   after_create  :define_domain
 
-  
   has_many :user_articles
   has_many :users, :through => :user_articles
 
@@ -14,16 +11,6 @@ class Article < ActiveRecord::Base
   end
 
   private
-
-  def set_updated_at
-    #articles_quantity = APP_CONFIG['articles_quantity']
-    today_articles = user.articles.where(:updated_at => Time.now.midnight .. (Time.now.midnight + 1.day)).count
-    if today_articles <= articles_quantity[user.setting.articles_quantity]
-      self.updated_at = Time.now
-    else
-      self.updated_at = Time.now + 1.day
-    end
-  end
 
   def define_domain
     domain_regex = /([a-z0-9\-]*\.)+[a-z]*/i

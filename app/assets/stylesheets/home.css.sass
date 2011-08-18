@@ -1,11 +1,13 @@
 body.home
+  font-size: 1.125em
+  line-height: 1.5em
   .header
     background: none
     border: none
     height: 150px
     line-height: 150px
     padding-bottom: 20px
-    border-bottom: 1px dashed #B3B3B3
+    border-bottom: 1px dashed #D9D9D9
     h1
       color: #333
       font-size: 92px
@@ -25,11 +27,14 @@ body.home
         -webkit-border-radius: 92px
         -moz-border-radius: 92px
         border-radius: 92px
+  h2, h3, h4
+    color: #333
+    font-weight: normal
 
   .content
     overflow: hidden
     padding-top: 20px
-    h3
+    h2
       text-align: center
     .col
       float: left
@@ -51,8 +56,15 @@ body.home
         margin-right: 10px
         &.last
           margin-right: 0
-            
+
+    .info
+      overflow: hidden
+      margin-bottom: 40px
     .login-box
+      clear: both
+      overflow: hidden
+      padding-top: 20px
+      border-top: 1px dashed #D9D9D9
       text-align: center
       position: relative
       a
@@ -115,9 +127,9 @@ body.home
           color: #B3B3B3
 
   .divider
-    border-bottom: 1px dashed #B3B3B3
+    border-bottom: 1px dashed #D9D9D9
     clear: both
-    margin-bottom: 20px
+    margin-bottom: 40px
 
   .center-text
     text-align: center
