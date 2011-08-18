@@ -24,6 +24,10 @@
 <% end %>
 
 <ul id="articles" class="articles">
-  <%= render @articles %>
-  <%= render @readed_articles_today %>
+  <li class="threecol article" >
+    <%= render @articles %>
+  </li>
+  <li class="threecol article article-read" >
+    <%= render @readed_articles_today %>
+  </li>
 </ul>

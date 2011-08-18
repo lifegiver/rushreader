@@ -1,14 +1,16 @@
 class ArticlesController < ApplicationController
   before_filter :authenticate, :only => [:index, :new, :create, :edit, :update, :archive, :show]
   before_filter :correct_user, :only => [:destroy]
+
   layout :layout_by_method
 
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
-    readed_articles = %(SELECT article_id FROM user_articles WHERE user_id = (#{current_user.id}) AND read = 1)
-    @readed_articles_today = current_user.articles.where("article_id IN (#{readed_articles})",
-                            :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
-    @articles = current_user.articles.where("article_id NOT IN (#{readed_articles})")
+    readed_articles = current_user.user_articles.find(:all, :conditions => {:read => true, :updated_at => user_time.midnight .. (user_time.midnight + 1.day)}, :select => 'article_id').map {|x| x.article_id}
+    @readed_articles_today = Article.where(:id => readed_articles)
+    unreaded_articles = current_user.user_articles.find(:all, :conditions => {:read => false, :updated_at => user_time.midnight .. (user_time.midnight + 1.day)}, :select => 'article_id').map {|x| x.article_id}
+    @articles = Article.where(:id => unreaded_articles)
+
     #@readed_articles_today = current_user.articles.where(:read => true, :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
     #@articles = current_user.articles.where(:read => false)
 
@@ -78,31 +80,19 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    exist_article = Article.find_by_link(params[:article][:link])
-    if exist_article.nil?
-      @article = Article.new(params[:article])
-      get_article_title(@article)
-      respond_to do |format|
-      @article.save
-        #if @article.save
-          #format.html { redirect_to @article, notice: 'Article was successfully created.' }
-       #   format.html { redirect_to articles_url }
-       #   format.js
-       # else
-       #  format.html { render action: "new" }
-       #   format.json { render json: @article.errors, status: :unprocessable_entity }
-       # end
-        new_article_record = UserArticle.create(:user_id => current_user.id,
-                                            :article_id => @article.id, :read => false)
+    exist_article(params[:article][:link])
+    @article = current_user.articles.create(params[:article])
+    get_article_title(@article)
+    respond_to do |format|
+      if @article.save
+        #format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.html { redirect_to articles_url }
+        format.js
+      else
+        format.html { render action: "new" }
+        format.json { render json: @article.errors, status: :unprocessable_entity }
       end
-    else
-      new_article_record = UserArticle.create( :user_id => current_user.id,
-                                               :article_id => exist_article.id,
-                                               :read => false)
     end
-      new_article_record.save
-      format.html { redirect_to articles_url }
-      format.js
   end
 
 
@@ -165,4 +155,12 @@ class ArticlesController < ApplicationController
       user = @article.user
       redirect_to root_path unless current_user == user
     end
+
+  def exist_article(link)
+    exist_article = Article.find_by_link(link)
+    if !exist_article.nil?
+      UserArticle.create(:user_id => current_user.id, :article_id => exist_article.id).save
+    end
+  end
+
 end

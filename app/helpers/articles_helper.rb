@@ -12,7 +12,7 @@ module ArticlesHelper
                                   :conditions => { :article_id => article.id, 
                                                    :user_id => current_user.id })
     return result.read
-  end
+ end
 
   def highlight(text)
     Albino.colorize(text, :css).to_s.html_safe
@@ -35,12 +35,12 @@ module ArticlesHelper
   end
 
   def last_read_article
-    duplicate_article = UserArticle.find(:first, :order => "updated_at DESC", :limit => 1,
+    duplicate = UserArticle.find(:first, :order => "updated_at DESC", :limit => 1,
                                          :conditions => {:user_id => current_user.id, :read => true})
-    if !duplicate_article.nil?
-      last_read_article = UserArticle.find(:first, :limit => 1, 
-                                         :conditions => {:article_id => duplicate_article.id, 
-                                                         :user_id => current_user.id})
+    if !duplicate.nil?
+      original = UserArticle.find(:first, :limit => 1,
+                                  :conditions => {:article_id => duplicate.article_id, 
+                                                  :user_id => current_user.id, :read => true})
     end
   end
 

@@ -1,13 +1,16 @@
 class Article < ActiveRecord::Base
-  
-  #before_save :set_updated_at
-  after_create  :define_domain
+  include SessionsHelper
 
-  
   has_many :user_articles
   has_many :users, :through => :user_articles
 
   belongs_to :domain
+
+  validates :link, :uniqueness => { :case_sensitive => false }
+
+  #before_save :set_updated_at
+ # before_validation  :exist_article
+  after_create :define_domain
 
   def to_param
     "#{id}-#{link.parameterize}"
@@ -37,8 +40,6 @@ class Article < ActiveRecord::Base
     end
     self.save
   end
-
-
 
 end
 
