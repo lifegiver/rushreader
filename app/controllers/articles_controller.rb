@@ -1,16 +1,13 @@
 class ArticlesController < ApplicationController
   before_filter :authenticate, :only => [:index, :new, :create, :edit, :update, :archive, :show]
   before_filter :correct_user, :only => [:destroy]
+
   layout :layout_by_method
 
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
-    readed_articles = %(SELECT article_id FROM user_articles WHERE user_id = (#{current_user.id}) AND read = 1)
-    @readed_articles_today = current_user.articles.where("article_id IN (#{readed_articles})",
-                            :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
-    @articles = current_user.articles.where("article_id NOT IN (#{readed_articles})")
-    #@readed_articles_today = current_user.read_articles
-    #@articles = current_user.articles.where(:read => false)
+    @readed_articles_today = current_user.user_articles.where(:read => true, :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
+    @articles = current_user.user_articles.where(:read => false)
 
     if !last_read_article.nil?
       timer_all_time = last_read_time
@@ -35,10 +32,6 @@ class ArticlesController < ApplicationController
                                     :article_id => @article.id })
     if last_article.nil? || (!last_article.nil? && time_from_last_reading > current_user.setting.interval_between_readings.minutes) || user_article.read?
       user_article.read = true
-  #    logger.info "========================="
-  #    logger.info "Is it read? => #{@article.read}"
-  #    logger.info "========================="
-
       if (@article.domain.rule.nil?)
         @result = "empty"
       else
@@ -78,7 +71,7 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    @article = Article.new(params[:article])
+    @article = current_user.articles.create(params[:article])
     get_article_title(@article)
     respond_to do |format|
       if @article.save
@@ -86,7 +79,6 @@ class ArticlesController < ApplicationController
         format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -151,4 +143,5 @@ class ArticlesController < ApplicationController
       user = @article.user
       redirect_to root_path unless current_user == user
     end
+
 end

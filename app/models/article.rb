@@ -1,10 +1,9 @@
 class Article < ActiveRecord::Base
-  after_create  :define_domain
-
   has_many :user_articles
   has_many :users, :through => :user_articles
-
   belongs_to :domain
+
+  after_create :define_domain
 
   def to_param
     "#{id}-#{link.parameterize}"
@@ -24,8 +23,6 @@ class Article < ActiveRecord::Base
     end
     self.save
   end
-
-
 
 end
 

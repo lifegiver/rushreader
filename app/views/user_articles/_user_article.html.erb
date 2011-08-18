@@ -1,0 +1,12 @@
+<li class="threecol article <% if user_article.read? %>article-read<% end %>" >
+  <div class="article_box">
+    <div class="favico">
+      <%= image_tag("http://www.google.com/s2/favicons?domain=#{user_article.article.link.match(/[a-z0-9]*\.[a-z0-9]*/)}") %>
+    </div>
+    <div class="link">
+      <%= link_to user_article.article.title, user_article.article  %>
+      <%= link_to 'x', user_article.article, confirm: 'Are you sure?', method: :delete, :remote => true, :class=>"delete-article" %>
+    </div>
+  </div>
+</li>
+
