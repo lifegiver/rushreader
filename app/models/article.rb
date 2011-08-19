@@ -4,6 +4,7 @@ class Article < ActiveRecord::Base
   belongs_to :domain
 
   after_create :define_domain
+  validates_uniqueness_of :link
 
   def to_param
     "#{id}-#{link.parameterize}"
