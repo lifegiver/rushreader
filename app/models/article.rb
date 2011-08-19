@@ -3,6 +3,8 @@ class Article < ActiveRecord::Base
   has_many :users, :through => :user_articles
   belongs_to :domain
 
+  validates :link, :uniqueness => { :case_sensitive => false }
+
   after_create :define_domain
 
   def to_param

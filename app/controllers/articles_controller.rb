@@ -71,6 +71,7 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
+    exist_article(params[:article][:link])
     @article = current_user.articles.create(params[:article])
     get_article_title(@article)
     respond_to do |format|
@@ -143,5 +144,15 @@ class ArticlesController < ApplicationController
       user = @article.user
       redirect_to root_path unless current_user == user
     end
+
+    
+  def exist_article(link)
+    exist_article = Article.find_by_link(link)
+    if !exist_article.nil?
+      #UserArticle.create(:user_id => current_user.id, :article_id => exist_article.id).save
+      current_user.user_articles.create(:article_id => exist_article.id).save
+    end
+  end
+
 
 end
