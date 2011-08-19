@@ -6,7 +6,7 @@ class DomainsController < ApplicationController
 
   def history
     @domain = Domain.find(params[:id])
-    @rule = Rule.find(params[:rule_id])
+    @rule = History.find(params[:rule_id])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @domain }

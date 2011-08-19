@@ -1,9 +1,5 @@
 <h1>Editing domain <%= "#{@domain.name}" %></h1>
 
-<%# last_rule = Rule.find(:first, :order => "updated_at DESC", :limit => 1,
-                                 :conditions => { :domain_name => @domain.name } ) %>
-<% domain_history = History.find(:all,   :conditions => { :domain_name => @domain.name } ) %>
-
 <table>
   <tr>
     <th>Date</th>
