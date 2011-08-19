@@ -5,7 +5,6 @@
   <%= @domain.name %>
 </p>
 
-<%# if current_user.admin? %>
 <p>
   <b>Current title rule:</b>
   <%= @domain.title_rule %>
@@ -14,7 +13,6 @@
   <b>Current rule:</b>
   <%= @domain.rule %>
 </p>
-<%# end %>
 
 <p>
   <b>Current custom CSS rule:</b>
@@ -23,7 +21,8 @@
 <% last_rule = History.find(:first, :order => "updated_at DESC", :limit => 1,
                                :conditions => { :domain_name => @domain.name } ) %>
 <% if !last_rule.nil? %>
-  Last changes made by <%= last_rule.user_name %>.<br/><br/>
+  Last changes were made <%= last_rule.updated_at.strftime("%Y-%m-%d %H:%M") %>
+                         by <%= last_rule.user_name %>.<br/><br/>
 <% end %>
 
 
