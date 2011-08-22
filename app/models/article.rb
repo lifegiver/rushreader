@@ -6,7 +6,6 @@ class Article < ActiveRecord::Base
   validates :link, :uniqueness => { :case_sensitive => false }
 
   after_create :define_domain
-  validates_uniqueness_of :link
 
   def to_param
     "#{id}-#{link.parameterize}"

@@ -36,6 +36,14 @@ class ArticlesController < ApplicationController
         @result = "empty"
       else
         url = Nokogiri::HTML(open(@article.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
+
+        #check if the domain is present in images tags. if not, add the daomain
+        url.search('img').each do |n|
+          if !n['src'].match(/@article.domain.name/)
+            n['src'] = "http://" + @article.domain.name + "/" + n['src']
+          end
+        end
+
         url.encoding = 'UTF-8'
         @result = url.at_css(@article.domain.rule).children
       end
