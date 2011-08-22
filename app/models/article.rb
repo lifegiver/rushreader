@@ -1,4 +1,5 @@
 class Article < ActiveRecord::Base
+
   has_many :user_articles
   has_many :users, :through => :user_articles
   belongs_to :domain
@@ -6,6 +7,9 @@ class Article < ActiveRecord::Base
   validates :link, :uniqueness => { :case_sensitive => false }
 
   after_create :define_domain
+
+  #scope :most_popular, joins(:user_articles)
+     # .where('user_articles.article_id = (SELECT MAX(user_articles.count) FROM books WHERE user_articles.article_id = articles.id)')
 
   def to_param
     "#{id}-#{link.parameterize}"
