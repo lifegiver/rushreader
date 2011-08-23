@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserArticleTest < ActiveSupport::TestCase
+class PopularArticleTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
@@ -8,12 +8,11 @@ end
 
 # == Schema Information
 #
-# Table name: user_articles
+# Table name: popular_articles
 #
 #  id         :integer         not null, primary key
-#  user_id    :integer
 #  article_id :integer
-#  read       :boolean         default(FALSE)
+#  views      :integer
 #  created_at :datetime
 #  updated_at :datetime
 #

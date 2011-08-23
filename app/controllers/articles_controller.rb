@@ -30,8 +30,13 @@ class ArticlesController < ApplicationController
     user_article = UserArticle.find(:first, :limit => 1,
                                     :conditions => { :user_id => current_user.id,
                                     :article_id => @article.id })
+    if user_article.nil? 
+      user_article = current_user.user_articles.create(:article_id => @article.id)
+      user_article.save
+    end
     if last_article.nil? || (!last_article.nil? && time_from_last_reading > current_user.setting.interval_between_readings.minutes) || user_article.read?
       user_article.read = true
+      add_view(@article)
       if (@article.domain.rule.nil?)
         @result = "empty"
       else
@@ -133,6 +138,14 @@ class ArticlesController < ApplicationController
     #article_obj.update_attributes(params[:article])
   end
 
+  def popular_articles
+    popart_ids = PopularArticle.find(:all, :order => "views DESC", :limit => 5, :conditions => {:created_at => Time.now.midnight .. (Time.now.midnight + 1.day)}).map{|art| art.article_id}
+    File.open('lib/popular_articles.yml', 'w') do |f|
+      f.puts popart_ids.to_yaml
+    end
+    redirect_to articles_path
+  end
+
   private
 
     def layout_by_method
@@ -152,15 +165,21 @@ class ArticlesController < ApplicationController
       user = @article.user
       redirect_to root_path unless current_user == user
     end
-
     
   def exist_article(link)
     exist_article = Article.find_by_link(link)
     if !exist_article.nil?
-      #UserArticle.create(:user_id => current_user.id, :article_id => exist_article.id).save
       current_user.user_articles.create(:article_id => exist_article.id).save
     end
   end
 
+  def add_view(article)
+    popular_article = PopularArticle.find(:last, :conditions => {:article_id => article.id})
+    if !popular_article.nil? && popular_article.created_at > 1.day.ago
+      popular_article.update_attributes(:views => popular_article.views + 1)
+    else
+      PopularArticle.create(:article_id => article.id, :views => 1).save
+    end
+  end
 
 end

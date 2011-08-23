@@ -21,6 +21,10 @@ module ArticlesHelper
     current_user.setting.interval_between_readings.minutes
   end
 
+  def load_popular_articles
+    popart_ids = YAML::load(File.open('lib/popular_articles.yml'))
+  end
+
   def last_read_article
     current_user.user_articles.where(:read => true).order("updated_at DESC").first
   end

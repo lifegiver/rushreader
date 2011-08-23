@@ -1,18 +1,16 @@
-class UserArticle < ActiveRecord::Base
+class PopularArticle < ActiveRecord::Base
 
-  belongs_to :user
   belongs_to :article
 
 end
 
 # == Schema Information
 #
-# Table name: user_articles
+# Table name: popular_articles
 #
 #  id         :integer         not null, primary key
-#  user_id    :integer
 #  article_id :integer
-#  read       :boolean         default(FALSE)
+#  views      :integer
 #  created_at :datetime
 #  updated_at :datetime
 #

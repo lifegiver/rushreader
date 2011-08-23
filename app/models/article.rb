@@ -2,6 +2,7 @@ class Article < ActiveRecord::Base
 
   has_many :user_articles
   has_many :users, :through => :user_articles
+  has_many :popular_articles
   belongs_to :domain
 
   validates :link, :uniqueness => { :case_sensitive => false }
@@ -36,11 +37,12 @@ end
 #
 # Table name: articles
 #
-#  id         :integer         not null, primary key
-#  link       :string(255)
-#  title      :string(255)
-#  domain_id  :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  id                  :integer         not null, primary key
+#  link                :string(255)
+#  title               :string(255)
+#  domain_id           :integer
+#  created_at          :datetime
+#  updated_at          :datetime
+#  original_created_at :datetime
 #
 

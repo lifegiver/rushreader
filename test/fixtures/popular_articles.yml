@@ -1,23 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  user_id: 1
   article_id: 1
-  read: false
+  views: 1
 
 two:
-  user_id: 1
   article_id: 1
-  read: false
+  views: 1
 
 # == Schema Information
 #
-# Table name: user_articles
+# Table name: popular_articles
 #
 #  id         :integer         not null, primary key
-#  user_id    :integer
 #  article_id :integer
-#  read       :boolean         default(FALSE)
+#  views      :integer
 #  created_at :datetime
 #  updated_at :datetime
 #
