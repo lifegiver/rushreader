@@ -25,6 +25,14 @@ module ArticlesHelper
     popart_ids = YAML::load(File.open('lib/popular_articles.yml'))
   end
 
+  def is_popular_articles
+    if load_popular_articles == ""
+      return true
+    else
+      return false
+    end
+  end
+
   def last_read_article
     current_user.user_articles.where(:read => true).order("updated_at DESC").first
   end
