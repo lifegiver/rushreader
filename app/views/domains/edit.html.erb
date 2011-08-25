@@ -1,5 +1,6 @@
 <h1>Editing domain <%= "#{@domain.name}" %></h1>
 
+<% if domain_history.any? %>
 <table>
   <tr>
     <th>Date</th>
@@ -8,7 +9,7 @@
     <th></th>
     <th>Actions</th>
   </tr>
-
+<% end %>
 
 <% domain_history.each do |rule| %>
   <tr>
