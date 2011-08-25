@@ -1,1 +1,4 @@
 $('#article_<%= @article.id %>').remove();
+$('ul.articles').children(".last").removeClass("last");
+$('ul.articles').children(".clear").remove();
+$('ul.articles > li:nth-child(4n)').addClass("last").after("<div class='clear'></div>");

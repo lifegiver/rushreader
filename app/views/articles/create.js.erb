@@ -3,3 +3,4 @@ if ($('.article').not('.article-read').length > 0) {
 } else {
   $('#articles').prepend("<%= escape_javascript(render @article) %>");
 }
+resizenow();
