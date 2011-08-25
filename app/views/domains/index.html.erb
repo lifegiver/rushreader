@@ -1,29 +1,6 @@
 <h1>Listing domains</h1>
-
-<table>
-  <tr>
-    <th>Domain</th>
-    <% if current_user.admin? %>
-      <th>Rule</th>
-      <th>Custom css</th>
-    <% end %>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @domains.each do |domain| %>
-  <tr>
-    <td><%= domain.name %></td>
-    <% if current_user.admin? %>
-      <td><%= domain.rule %></td>
-      <td class="custom_css"><%= highlight(domain.custom_css) %></td>
-    <% end %>
-    <td><%= link_to 'Show', domain %></td>
-    <td><%= link_to 'Edit', edit_domain_path(domain) %></td>
-    <% if current_user.admin? %>
-    <td><%= link_to 'Destroy', domain, confirm: 'Are you sure?', method: :delete %></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
+<ul class="domains">
+  <% @domains.each do |domain| %>
+    <li><%= link_to domain.name, edit_domain_path(domain) %></li>
+  <% end %>
+</ul>

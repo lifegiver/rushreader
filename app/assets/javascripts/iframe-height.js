@@ -1,6 +1,6 @@
 //function to fix height of iframe!
 var calcHeight = function() {
-  var headerDimensions = $('.header').height()+1;
+  var headerDimensions = $('.header').outerHeight()+$(".alert").outerHeight();
   $('#article-iframe').height($(window).height() - headerDimensions);
 }
 

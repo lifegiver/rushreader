@@ -1,5 +1,6 @@
 <% content_for :rawstyle do %>
   .header { position: fixed; top:0; left: 0; right: 0; z-index: 100}
+  .content { margin-bottom: 0 }
   .footer, .cal {display: none}
   <%=raw @article.domain.custom_css %>
 <% end %>
@@ -8,6 +9,7 @@
     <% content_for :javascript do %>
       <%= javascript_include_tag "iframe-height" %>
     <% end %>
+    <div class="alert">Read this article content only. <%= link_to "Add a CSS rule.", edit_domain_path(@article.domain) %></div>
     <iframe id="article-iframe" src="<%= @article.link %>" width="100%"></iframe>
   <% else %>
     <div id="article-content">
