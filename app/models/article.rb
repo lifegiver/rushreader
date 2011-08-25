@@ -18,6 +18,8 @@ class Article < ActiveRecord::Base
 
   private
 
+# From each new added article is cutted off its domain defined by regular expression. This domain stores
+# for further editing rules of displaying articles hosted on this domain.
   def define_domain
     domain_regex = /([a-z0-9\-]*\.)+[a-z]*/i
     domain_name = self.link.match(domain_regex)[0]

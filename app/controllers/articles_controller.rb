@@ -6,9 +6,11 @@ class ArticlesController < ApplicationController
 
   def index
     articles_quantity = APP_CONFIG['articles_quantity']
+    #articles that user have read today
     @readed_articles_today = current_user.user_articles.where(:read => true, :updated_at => user_time.midnight .. (user_time.midnight + 1.day))
+    # unread user's articles
     @articles = current_user.user_articles.where(:read => false)
-
+    #time before user can read next article
     if !last_read_article.nil?
       timer_all_time = last_read_time
       @timer_minutes = timer_all_time / 60
@@ -34,15 +36,19 @@ class ArticlesController < ApplicationController
       user_article = current_user.user_articles.create(:article_id => @article.id)
       user_article.save
     end
+    # User can read article if it is his first article, if time between user can read new articles 
+    # has passed(time is an option defined by user) or if user has already read this article
     if last_article.nil? || (!last_article.nil? && time_from_last_reading > current_user.setting.interval_between_readings.minutes) || user_article.read?
       user_article.read = true
+      # Each read/viewed article is counted. The most viewed articles for today
+      # displayed as current popular articles
       add_view(@article)
       if (@article.domain.rule.nil?)
         @result = "empty"
       else
         url = Nokogiri::HTML(open(@article.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
 
-        #check if the domain is present in images tags. if not, add the daomain
+        #check if the domain is present in images tags. if not, add the domain
         url.search('img').each do |n|
           if !n['src'].match(/@article.domain.name/)
             n['src'] = "http://" + @article.domain.name + "/" + n['src']
@@ -126,6 +132,7 @@ class ArticlesController < ApplicationController
     end
   end
 
+# Each article displayed as its title on original site or its link (if title is absent)
   def get_article_title(article_obj)
     require 'open-uri'
     url = Nokogiri::HTML(open(article_obj.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
@@ -138,6 +145,7 @@ class ArticlesController < ApplicationController
     #article_obj.update_attributes(params[:article])
   end
 
+# Popular articles are the most read articles for today
   def popular_articles
     popart_ids = PopularArticle.find(:all, :order => "views DESC", :limit => 5, :conditions => {:created_at => Time.now.midnight .. (Time.now.midnight + 1.day)}).map{|art| art.article_id}
     File.open('lib/popular_articles.yml', 'w') do |f|
@@ -165,7 +173,9 @@ class ArticlesController < ApplicationController
       user = @article.user
       redirect_to root_path unless current_user == user
     end
-    
+
+# If current user add an article that already exist (added by other user), it is only created
+# a record that connects current user to added article in user_articles.    
   def exist_article(link)
     exist_article = Article.find_by_link(link)
     if !exist_article.nil?
@@ -173,6 +183,9 @@ class ArticlesController < ApplicationController
     end
   end
 
+# Information about views of every day stores in popular_articles. If this article is read for first
+# time ever or for first time of current day it has 1 view. In other case 1 view is added to current 
+# quantity of views 
   def add_view(article)
     popular_article = PopularArticle.find(:last, :conditions => {:article_id => article.id})
     if !popular_article.nil? && popular_article.created_at > 1.day.ago

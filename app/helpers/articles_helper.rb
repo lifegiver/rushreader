@@ -1,6 +1,7 @@
 module ArticlesHelper
   require 'albino'
 
+# Highlighting of string with css syntax
   def highlight(text)
     Albino.colorize(text, :css).to_s.html_safe
   end 
@@ -9,6 +10,7 @@ module ArticlesHelper
     redirect_to login_path, :notice => "Please sign in to access this page."
   end
 
+# Difference between server and user time zones
   def user_utc_shift
     ActiveSupport::TimeZone[current_user.setting.utc].now.hour - Time.now.hour
   end

@@ -13,6 +13,8 @@ class DomainsController < ApplicationController
     end
   end
 
+# All changes of rules of any domain are stored. Any performed change can be load from
+# edit domain page by user.
   def load_from_history
     @domain = Domain.find(params[:id])
     @domain.update_attributes(:custom_css => params[:custom_css], :rule => params[:rule],
@@ -85,6 +87,7 @@ class DomainsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @domain.errors, status: :unprocessable_entity }
       end
+    # each update of domain fields recored to history
     new_history = History.new(:custom_css => @domain.custom_css, :domain_name => @domain.name, :user_id => current_user.id, :user_name => current_user.email, :rule => @domain.rule, :domain_id => @domain.id, :title_rule => @domain.title_rule)
     new_history.save
     end

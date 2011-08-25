@@ -1,13 +1,13 @@
 module SessionsHelper
 
+# If user is new (his login doesn't presence in user database), the user is registered.
+# If user exists and didn't protect his account with password, the user is signed in.
+# If user exists and protect his accout with password, the user is asked for password.
   def password_check
     user = User.find_by_email(params[:session][:email])
     if user.nil?
       @user = User.new(:email => params[:session][:email])
       @user.save
-      logger.info "========================="
-      logger.info "#{@user.encrypted_password}"
-      logger.info "========================="
       sign_in @user
       redirect_to @user, :flash => { :success => "Welcome!" }
     else
