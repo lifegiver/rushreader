@@ -54,6 +54,11 @@
   </div>
 </div>
 
+<% if current_user.admin? %>
+  <%= button_to "Collect popular articles", :controller => "articles",
+                                            :action => "popular_articles" %><br/>
+<% end %>
+
 <div class="footer">
   <div class="container">
     <p>© 2011 Eugene Dorian, Alexander Lopez </p>
