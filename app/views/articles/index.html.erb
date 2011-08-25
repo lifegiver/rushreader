@@ -28,9 +28,6 @@
   <%= render @readed_articles_today %>
 </ul>
 
-<% if current_user.admin? %>
-  <%= button_to "Collect popular articles", :action => "popular_articles" %><br/>
-<% end %>
 <% if !popular_articles_empty? %>
   <h3>Popular articles</h3>
   <ul id="popular_articles" class="articles">
