@@ -25,12 +25,8 @@ module ArticlesHelper
     popart_ids = YAML::load(File.open('lib/popular_articles.yml'))
   end
 
-  def is_popular_articles
-    if load_popular_articles == ""
-      return true
-    else
-      return false
-    end
+  def popular_articles_empty?
+    return load_popular_articles.blank?
   end
 
   def last_read_article
