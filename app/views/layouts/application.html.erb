@@ -36,6 +36,9 @@
             <button>Submit</button>
           <% end %>
         </li>
+        <% if current_user.admin? %>
+          <li><%= link_to "Collect popular articles", :action => "popular_articles" %></li>
+        <% end %>
         <li><%= link_to "Settings", settings_path, :title => "Settings", :class => "ico settings" %></li>
         <li><%= link_to "Sign out", signout_path, :method => :delete, :title => "Sign out", :class => "ico signout" %></li>
 
