@@ -90,9 +90,15 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    exist_article(params[:article][:link])
-    @article = current_user.articles.create(params[:article])
-    get_article_title(@article)
+    # If current user add an article that already exist (added by other user), it is only created
+    # a record that connects current user to added article in user_articles.    
+    exist_article = Article.find_by_link(params[:article][:link])
+    if !exist_article.nil?
+      @article = current_user.user_articles.create(:article_id => exist_article.id)
+    else # Article do not exist
+      @article = current_user.articles.create(params[:article])
+      get_article_title(@article)
+    end
     respond_to do |format|
       if @article.save
         format.html { redirect_to articles_url }
@@ -102,8 +108,6 @@ class ArticlesController < ApplicationController
       end
     end
   end
-
-
 
   # PUT /articles/1
   # PUT /articles/1.json
@@ -156,31 +160,22 @@ class ArticlesController < ApplicationController
 
   private
 
-    def layout_by_method
-      if params[:action] == "show"
-        "show"
-      else
-        "application"
-      end
+  def layout_by_method
+    if params[:action] == "show"
+      "show"
+    else
+      "application"
     end
+  end
 
-    def authenticate
-      deny_access unless signed_in?
-    end
+  def authenticate
+    deny_access unless signed_in?
+  end
 
-    def correct_user
-      @article = Article.find(params[:id])
-      user = @article.user
-      redirect_to root_path unless current_user == user
-    end
-
-# If current user add an article that already exist (added by other user), it is only created
-# a record that connects current user to added article in user_articles.    
-  def exist_article(link)
-    exist_article = Article.find_by_link(link)
-    if !exist_article.nil?
-      current_user.user_articles.create(:article_id => exist_article.id).save
-    end
+  def correct_user
+    @article = Article.find(params[:id])
+    user = @article.user
+    redirect_to root_path unless current_user == user
   end
 
 # Information about views of every day stores in popular_articles. If this article is read for first

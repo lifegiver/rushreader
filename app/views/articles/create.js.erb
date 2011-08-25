@@ -1,5 +1,5 @@
-if ($('.article').not('.article-read').length > 0) {
-  $('.article').not('.article-read').last().after("<%= escape_javascript(render @article) %>");
+if ($('#articles .article').not('.article-read').length > 0) {
+  $('#articles .article').not('.article-read').last().after("<%= escape_javascript(render @article) %>");
 } else {
   $('#articles').prepend("<%= escape_javascript(render @article) %>");
 }
