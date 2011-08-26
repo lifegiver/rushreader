@@ -139,6 +139,11 @@ class ArticlesController < ApplicationController
 # Each article displayed as its title on original site or its link (if title is absent)
   def get_article_title(article_obj)
     require 'open-uri'
+    # If article url doesn't contain "http://" its added for
+    # properly defining of article title
+    if (article_obj.link =~ /http:\/\//).nil?
+      article_obj.link = "http://" + article_obj.link
+    end
     url = Nokogiri::HTML(open(article_obj.link,'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30'))
     result = url.xpath('/html/head/title').text
     if result.blank?
