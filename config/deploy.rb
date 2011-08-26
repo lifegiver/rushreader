@@ -55,5 +55,21 @@ task :reload_nginx do
   sudo "/etc/init.d/nginx reload"
 end
 
-after "deploy", "reload_nginx"
+namespace :deploy do
+  desc "Symlinks the database.yml"
+  task :symlink_db, :roles => :app do
+    run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{deploy_to}/shared/lib/popular_articles.yml #{release_path}/lib/popular_articles.yml"
+  end
+end
 
+namespace :deploy do
+  desc "Symlinks the popular_articles.yml"
+  task :symlink_popart, :roles => :app do
+    run "ln -nfs #{deploy_to}/shared/lib/popular_articles.yml #{deploy_to}/current/lib/popular_articles.yml"
+  end
+end
+
+after "deploy", "reload_nginx"
+after 'deploy:update_code', 'deploy:symlink_db'
+after 'deploy:start', 'deploy:symlink_popart'
