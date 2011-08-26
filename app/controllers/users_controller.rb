@@ -32,12 +32,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    current_user.update_attributes(params[:user])
-    current_user.save
-    #user = User.authenticate(current_user.email, params[:user][:password])
-    sign_in current_user
-    redirect_back_or current_user
-    flash.now[:success] = "Your account is protected by password"
+    if params[:user][:password] == params[:user][:password_confirmation]
+      current_user.update_attributes(:password => params[:user][:password])
+      sign_in current_user
+      redirect_back_or current_user
+      flash.now[:success] = "Your account is protected by password"
+    else
+      redirect_to password_path, :notice => "Password/confirmation doesn't match"
+    end
   end
 
   def destroy

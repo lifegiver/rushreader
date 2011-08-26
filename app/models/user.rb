@@ -15,23 +15,7 @@ class User < ActiveRecord::Base
   validates :password, :confirmation => true
 
   before_save :encrypt_password
-  after_save :update_articles
   after_create :initial_settings
-
-  #after_save callback to handle article_ids
-  def update_articles
-    unless article_ids.nil?
-      self.user_articles.each do |u|
-        u.destroy unless article_ids.include?(u.article_id.to_s)
-        article_ids.delete(u.article_id.to_s)
-      end 
-      article_ids.each do |a|
-        self.user_articles.create(:article_id => a) unless a.blank?
-      end
-      reload
-      self.article_ids = nil
-    end
-  end
 
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
