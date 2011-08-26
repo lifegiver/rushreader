@@ -21,7 +21,8 @@ class Article < ActiveRecord::Base
 # From each new added article is cutted off its domain defined by regular expression. This domain stores
 # for further editing rules of displaying articles hosted on this domain.
   def define_domain
-    domain_regex = /([a-z0-9\-]*\.)+[a-z]*/i
+    #domain_regex = /([a-z0-9\-]*\.)+[a-z]*/i
+    domain_regex = /[^w{3}^\.^\/]([a-z0-9\-]*\.)+[a-z]*/i
     domain_name = self.link.match(domain_regex)[0]
     domain_find_by_name = Domain.find_by_name(domain_name)
     if domain_find_by_name.nil?
