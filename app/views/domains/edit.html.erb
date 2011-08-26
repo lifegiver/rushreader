@@ -1,35 +1,32 @@
-<h1>Editing domain <%= "#{@domain.name}" %></h1>
-
-<% if domain_history.any? %>
-<table>
-  <tr>
-    <th>Date</th>
-    <th></th>
-    <th>User</th>
-    <th></th>
-    <th>Actions</th>
-  </tr>
-<% end %>
-
-<% domain_history.each do |rule| %>
-  <tr>
-    <th><%= rule.updated_at.strftime("%Y-%m-%d %H:%M") %></th>
-    <th></th>
-    <th><%= rule.user_name %></th>
-    <th></th>
-    <th><%= link_to "Show", :controller => "domains",
-                            :action => "history", :id => rule.domain_id, :rule_id => rule.id %>,
-        <%= link_to "Use",  :controller => "domains",
-                            :action => "load_from_history", :id => rule.domain_id, 
-                            :custom_css => rule.custom_css,
-                            :rule => rule.rule, :title_rule => rule.title_rule %>
-
-        
-  </tr>
-<% end %>
-</table>
+<h1><%= "#{@domain.name}" %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @domain %> |
+<% if domain_history.any? %>
+  <div class="history">
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>User</th>
+        <th>Actions</th>
+      </tr>
+
+    <% domain_history.each do |rule| %>
+      <tr>
+        <td><%= time_ago_in_words(rule.updated_at) %></td>
+        <td><%= rule.user_name %></td>
+        <td><%= link_to "Show", :controller => "domains",
+                                :action => "history", :id => rule.domain_id, :rule_id => rule.id %>,
+            <%= link_to "Use",  :controller => "domains",
+                                :action => "load_from_history", :id => rule.domain_id, 
+                                :custom_css => rule.custom_css,
+                                :rule => rule.rule, :title_rule => rule.title_rule %>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+<% end %>
+
+
 <%= link_to 'Back', domains_path %>
