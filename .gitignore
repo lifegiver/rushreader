@@ -13,3 +13,4 @@ db/schema.rb
 .sass-cache/
 public/assets/
 lib/popular_articles.yml
+config/database.yml

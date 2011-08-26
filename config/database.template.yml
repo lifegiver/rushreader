@@ -23,5 +23,5 @@ production:
   encoding: unicode
   database: readissimo_production
   pool: 5
-  username: readissimo
-  password: iZ3kAiZ5
+  username:
+  password:
