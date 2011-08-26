@@ -2,7 +2,7 @@ class DomainsController < ApplicationController
   # GET /domains
   # GET /domains.json
   
-  before_filter :admin_user, :only => [:destroy, :new, :create] 
+  before_filter :admin_user, :only => [:destroy, :new, :create, :load_from_history] 
 
   def history
     @domain = Domain.find(params[:id])
