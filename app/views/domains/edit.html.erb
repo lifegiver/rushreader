@@ -2,31 +2,37 @@
 
 <%= render 'form' %>
 
-<% if domain_history.any? %>
-  <div class="history">
-    <table>
-      <tr>
-        <th>Date</th>
-        <th>User</th>
-        <th>Actions</th>
-      </tr>
-
-    <% domain_history.each do |rule| %>
-      <tr>
-        <td><%= time_ago_in_words(rule.updated_at) %></td>
-        <td><%= rule.user_name %></td>
-        <td><%= link_to "Show", :controller => "domains",
-                                :action => "history", :id => rule.domain_id, :rule_id => rule.id %>,
-            <%= link_to "Use",  :controller => "domains",
-                                :action => "load_from_history", :id => rule.domain_id, 
-                                :custom_css => rule.custom_css,
-                                :rule => rule.rule, :title_rule => rule.title_rule %>
-        </td>
-      </tr>
-    <% end %>
-    </table>
-  </div>
+<% if !last_rule(@domain).nil?%>
+<br/>Last changes were made <%= time_ago_in_words(last_rule(@domain).updated_at) %> 
+     by <%= last_rule(@domain).user_name%>
 <% end %>
 
+<% if current_user.admin? %>
+  <% if domain_history.any? %>
+    <div class="history">
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>User</th>
+          <th>Actions</th>
+        </tr>
+
+      <% domain_history.each do |rule| %>
+        <tr>
+          <td><%= time_ago_in_words(rule.updated_at) %></td>
+          <td><%= rule.user_name %></td>
+          <td><%= link_to "Show", :controller => "domains",
+                                  :action => "history", :id => rule.domain_id, :rule_id => rule.id %>,
+              <%= link_to "Use",  :controller => "domains",
+                                  :action => "load_from_history", :id => rule.domain_id, 
+                                  :custom_css => rule.custom_css,
+                                  :rule => rule.rule, :title_rule => rule.title_rule %>
+          </td>
+        </tr>
+      <% end %>
+      </table>
+    </div>
+  <% end %>
+<% end %>
 
 <%= link_to 'Back', domains_path %>

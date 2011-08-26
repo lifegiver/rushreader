@@ -19,7 +19,7 @@ class DomainsController < ApplicationController
     @domain = Domain.find(params[:id])
     @domain.update_attributes(:custom_css => params[:custom_css], :rule => params[:rule],
                               :title_rule => params[:title_rule])
-    redirect_to edit_domain_path
+    redirect_to articles_path, notice: 'Domain was successfully updated.'
   end
 
   def index
@@ -81,7 +81,7 @@ class DomainsController < ApplicationController
     @domain = Domain.find(params[:id])
     respond_to do |format|
       if @domain.update_attributes(params[:domain])
-        format.html { redirect_to @domain, notice: 'Domain was successfully updated.' }
+        format.html { redirect_to articles_path, notice: 'Domain was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

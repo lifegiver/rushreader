@@ -5,4 +5,8 @@ module DomainsHelper
     History.find(:all,   :conditions => { :domain_name => @domain.name } )
   end
 
+  def last_rule(domain)
+    History.where(:domain_name => domain.name).order("updated_at DESC").first
+  end
+
 end

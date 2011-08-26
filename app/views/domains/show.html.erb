@@ -18,11 +18,10 @@
   <b>Current custom CSS rule:</b>
   <div class="custom_css"><%= highlight(@domain.custom_css) %></div>
 </p>
-<% last_rule = History.find(:first, :order => "updated_at DESC", :limit => 1,
-                               :conditions => { :domain_name => @domain.name } ) %>
-<% if !last_rule.nil? %>
-  Last changes were made <%= last_rule.updated_at.strftime("%Y-%m-%d %H:%M") %>
-                         by <%= last_rule.user_name %>.<br/><br/>
+
+<% if !last_rule(@domain).nil? %>
+  Last changes were made <%= time_ago_in_words(last_rule(@domain).updated_at) %>
+  by <%= last_rule(@domain).user_name %>.<br/><br/>
 <% end %>
 
 

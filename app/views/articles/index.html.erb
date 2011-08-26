@@ -1,7 +1,3 @@
-<% flash.each do |key, value|%>
- <div class ="flash <%= key %>"><%= value %></div>
-<% end %>
-
 <% content_for :top do %>
     <% if !last_read_article.nil? && last_read_time > 0%>
       <div class="overlay"></div>
