@@ -6,4 +6,3 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require footer_position

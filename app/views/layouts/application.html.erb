@@ -7,7 +7,7 @@
   <link href='http://fonts.googleapis.com/css?family=PT+Serif&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag "application" %>
   <%= stylesheet_link_tag params[:controller] %>
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application", "footer_position" %>
   <%= javascript_include_tag params[:controller] %>
   <%= yield :javascript %>
   <% if is_mobile_device? %>
