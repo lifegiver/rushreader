@@ -23,7 +23,8 @@ class DomainsController < ApplicationController
   end
 
   def index
-    @domains = Domain.all
+    @optimized_domains = Domain.where("rule IS NOT NULL").order("name")
+    @not_optimized_domains = Domain.where("rule IS NULL").order("name")
 
     respond_to do |format|
       format.html # index.html.erb

@@ -11,19 +11,25 @@
     </div>
   <% end %>
 
-	<div class="field">
-    <%= f.label "UTC" %>
-    <%#time_zone_select( 'utc' [ ActiveSupport::TimeZone['Alaska'], ActiveSupport::TimeZone['Hawaii'] ]) %>
-    <%= f.time_zone_select( 'utc' ) %>
-  </div>
-	<div class="field">
-		<%= f.label 'Interval between readings your articles (in minutes)' %>
-		<%= f.select(:interval_between_readings, @interval_between_readings_out) %>
-  </div>
-	<div class="field">
-		<%= f.label 'Time for reading of each article (in minutes)'%>
-		<%= f.select(:time_for_reading, @time_for_reading_out) %>
-  </div>
+  <fieldset>
+    <legend>Time Zone:</legend>
+    <div class="field">
+      <%= f.label "UTC" %>
+      <%#time_zone_select( 'utc' [ ActiveSupport::TimeZone['Alaska'], ActiveSupport::TimeZone['Hawaii'] ]) %>
+      <%= f.time_zone_select( 'utc' ) %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Reading settings:</legend>
+    <div class="field">
+      <%= f.label 'Interval between readings your articles (in minutes)' %>
+      <%= f.select(:interval_between_readings, @interval_between_readings_out) %>
+    </div>
+    <div class="field">
+      <%= f.label 'Time for reading of each article (in minutes)'%>
+      <%= f.select(:time_for_reading, @time_for_reading_out) %>
+    </div>
   <div class="actions">
     <%= f.submit %>
   </div>

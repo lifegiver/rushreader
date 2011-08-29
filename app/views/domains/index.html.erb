@@ -1,6 +1,21 @@
-<h1>Listing domains</h1>
-<ul class="domains">
-  <% @domains.each do |domain| %>
-    <li><%= link_to domain.name, edit_domain_path(domain) %></li>
+<div class="left">
+  <h1>Optimized domains</h1>
+  <% @optimized_domains.each_slice(20) do |slice| %>
+    <ul class="domains">
+      <% slice.each do |domain| %>
+        <li><%= link_to domain.name, edit_domain_path(domain) %></li>
+      <% end %>
+    </ul>
   <% end %>
-</ul>
+</div>
+
+<div class="left">
+  <h1>Not optimized domains</h1>
+  <% @not_optimized_domains.each_slice(20) do |slice| %>
+    <ul class="domains">
+      <% slice.each do |domain| %>
+        <li><%= link_to domain.name, edit_domain_path(domain) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

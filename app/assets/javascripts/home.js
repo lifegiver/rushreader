@@ -6,7 +6,7 @@ $(document).ready(function(){
     $(".arrow_right").animate({right:"100px"}, 500).animate({right:"60px"}, 500);
   }, 2000)
 
-  var login_text = "username or email";
+  var login_text = "login or register";
   var password_text = "password";
 
   if ($('#session_email').val("")) {
