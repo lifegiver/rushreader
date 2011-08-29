@@ -91,8 +91,8 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     # If current user add an article that already exist (added by other user), it is only created
-    # a record that connects current user to added article in user_articles.    
-    exist_article = Article.find_by_link(params[:article][:link])
+    # a record that connects current user to added article in user_articles.
+    exist_article = look_for_exist_article(params[:article][:link])    
     if !exist_article.nil?
       @article = current_user.user_articles.create(:article_id => exist_article.id)
     else # Article do not exist
@@ -134,6 +134,23 @@ class ArticlesController < ApplicationController
       format.html { redirect_to articles_url }
       format.js
     end
+  end
+
+  def look_for_exist_article(link)
+    Article.find_by_link(link)
+  end
+
+  def remotely_add_article
+    user = User.where(:loginhash => params[:id]).first
+    logger.info "#{user.email}"
+    exist_article = look_for_exist_article(params[:url])
+    if !exist_article.nil?
+      @article = user.user_articles.create(:article_id => exist_article.id)
+    else # Article do not exist
+      @article = user.articles.create(params[:article])
+      get_article_title(@article)
+    end
+    ### method is not finished
   end
 
 # Each article displayed as its title on original site or its link (if title is absent)

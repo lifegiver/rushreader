@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :password, :article_ids
-  attr_accessible :email, :password, :password_confirmation
+  attr_accessible :email, :password, :password_confirmation, :loginhash
 
   has_many :user_articles
   has_many :articles, :through => :user_articles
@@ -12,9 +12,11 @@ class User < ActiveRecord::Base
                     #:format => { :with => email_regex },
                     :uniqueness => { :case_sensitive => false }
 
+  #validates :loginhash, :uniqueness => { :case_sensitive => true }
+
   validates :password, :confirmation => true
 
-  before_save :encrypt_password
+  before_save :encrypt_password, :add_loginhash
   after_create :initial_settings
 
   def has_password?(submitted_password)
@@ -61,6 +63,18 @@ class User < ActiveRecord::Base
       Digest::SHA2.hexdigest(string)
     end
 
+    def add_loginhash
+      self.loginhash = make_short_login_hash(generate_long_login_hash)
+    end
+
+    def generate_long_login_hash
+      secure_hash("#{Time.now.utc}--#{email}")
+    end
+
+    def make_short_login_hash(string)
+      string[1..6]+string[12..17]
+    end
+
 end
 
 # == Schema Information
@@ -74,5 +88,6 @@ end
 #  admin              :boolean
 #  created_at         :datetime
 #  updated_at         :datetime
+#  loginhash          :string(255)
 #
 

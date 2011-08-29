@@ -17,5 +17,6 @@ end
 #  admin              :boolean
 #  created_at         :datetime
 #  updated_at         :datetime
+#  loginhash          :string(255)
 #
 
