@@ -50,7 +50,7 @@ class ArticlesController < ApplicationController
 
         #check if the domain is present in images tags. if not, add the domain
         url.search('img').each do |n|
-          if !n['src'].match(/#{@article.domain.name}/)
+          if !n['src'].match(/http/)
             n['src'] = "http://" + @article.domain.name + "/" + n['src']
           end
         end
